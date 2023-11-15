@@ -12,8 +12,10 @@ const query = util.promisify(con.query).bind(con)
 router.get('/', (req, res) => {
 	console.log(logger.Get("/v1/api/provider/nex_token/@me"))
     res.set('Content-Type', 'application/xml')
-    res.status = 200;
-    return res.send(`<nex_token>
+    res.status = 400;
+    return res.send(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><errors><error><code>0123</code><message>Service has expired</message></error></errors>`)
+//    res.status = 200;
+//    return res.send(`<nex_token>
 	<host>52.40.192.64</host>
 	<nex_password>iu8aAEL4pBd8nt2d</nex_password>
 	<pid>1739386479</pid>
