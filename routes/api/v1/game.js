@@ -14,11 +14,11 @@ router.get('/', (req, res) => {
     res.set('Content-Type', 'application/xml')
     res.status = 200;
     return res.send(`<nex_token>
-    <host>159.203.102.56</host>
-    <nex_password>5C5tJGIvuD2XcIrJ</nex_password>
-    <pid>1536590017</pid>
-    <port>60000</port>
-    <token>reW86aypeaWECkDIk24887CK/yiWyeld+8NgT7VsK1DoKpVu</token>
+	<host>52.40.192.64</host>
+	<nex_password>iu8aAEL4pBd8nt2d</nex_password>
+	<pid>1739386479</pid>
+	<port>60200</port>
+	<token>LVxLuzp2/u4i5LiprRgeOv/Gwtxe8RR5T+XQTDPnmCn+zEZpbaok4CVYcncOI5glThYTN3uU8n2ac6zgSqLufoBNUiMj+lGuPrnfgfbzJl7legMJ4lye+rEEKjsti7f7z4lkYFV3nKQB6fBPd6yy08cLyDBlO9+bjtgWhr24Yfw=</token>
 </nex_token>`);
 })
 
