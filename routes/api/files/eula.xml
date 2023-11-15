@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+
+<agreements>
+
+   <agreement>
+
+      <country>US</country>
+
+      <language>en</language>
+
+      <language_name>English</language_name>
+
+      <publish_date>2014-09-29T20:07:35</publish_date>
+
+      <texts
+
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chunkedStoredAgreementText">
+
+         <main_title>
+
+            <![CDATA[Ruby Network Services Agreement]]>
+
+         </main_title>
+
+         <agree_text>
+
+            <![CDATA[I Accept]]>
+
+         </agree_text>
+
+         <non_agree_text>
+
+            <![CDATA[I Decline]]>
+
+         </non_agree_text>
+
+         <main_text index="1">
+
+            <![CDATA[Welcome to Ruby! This is a stress test of our current services.]]>
+
+         </main_text>
+
+         <sub_title>
+
+            <![CDATA[Privacy Policy]]>
+
+         </sub_title>
+
+         <sub_text index="1">
+
+            <![CDATA[Welcome to Ruby! This is a stress test of our current services.]]>
+
+         </sub_text>
+
+      </texts>
+
+      <type>NINTENDO-NETWORK-EULA</type>
+
+      <version>0300</version>
+
+   </agreement>
+
+   <agreement>
+
+      <country>US</country>
+
+      <language>en</language>
+
+      <language_name>Español</language_name>
+
+      <publish_date>2014-09-29T20:07:35</publish_date>
+
+      <texts
+
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chunkedStoredAgreementText">
+
+         <main_title>
+
+            <![CDATA[Ruby Network Services Agreement]]>
+
+         </main_title>
+
+         <agree_text>
+
+            <![CDATA[I Accept]]>
+
+         </agree_text>
+
+         <non_agree_text>
+
+            <![CDATA[I Decline]]>
+
+         </non_agree_text>
+
+         <main_text index="1">
+
+            <![CDATA[Welcome to Ruby! This is a stress test of our current services.]]>
+
+         </main_text>
+
+         <sub_title>
+
+            <![CDATA[Privacy Policy]]>
+
+         </sub_title>
+
+         <sub_text index="1">
+
+            <![CDATA[Welcome to Ruby! This is a stress test of our current services.]]>
+
+         </sub_text>
+
+      </texts>
+
+      <type>NINTENDO-NETWORK-EULA</type>
+
+      <version>0300</version>
+
+   </agreement>
+
+   <agreement>
+
+      <country>US</country>
+
+      <language>en</language>
+
+      <language_name>Français</language_name>
+
+      <publish_date>2014-09-29T20:07:35</publish_date>
+
+      <texts
+
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chunkedStoredAgreementText">
+
+         <main_title>
+
+            <![CDATA[Ruby Network Services Agreement]]>
+
+         </main_title>
+
+         <agree_text>
+
+            <![CDATA[I Accept]]>
+
+         </agree_text>
+
+         <non_agree_text>
+
+            <![CDATA[I Decline]]>
+
+         </non_agree_text>
+
+         <main_text index="1">
+
+            <![CDATA[Welcome to Ruby! This is a stress test of our current services.]]>
+
+         </main_text>
+
+         <sub_title>
+
+            <![CDATA[Privacy Policy]]>
+
+         </sub_title>
+
+         <sub_text index="1">
+
+            <![CDATA[Welcome to Ruby! This is a stress test of our current services.]]>
+
+         </sub_text>
+
+      </texts>
+
+      <type>NINTENDO-NETWORK-EULA</type>
+
+      <version>0300</version>
+
+   </agreement>
+
+</agreements>
