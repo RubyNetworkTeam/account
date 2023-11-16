@@ -14,6 +14,10 @@ router.get('/:rpid/:file', async (req, res) => {
     console.log(logger.Get(`/mii/${rpid}/${file}`))
     res.status = 200;
     const data = await query(`SELECT mii_hash1 FROM accounts WHERE pid="${rpid}"`)
+    if (data.length == 0) {
+	res.status = 404
+	return res.send()
+    }
     const mii_data = data[0].mii_hash1
     const mii = new Mii(Buffer.from(mii_data, 'base64'))
     studioUrl = mii.studioUrl()
