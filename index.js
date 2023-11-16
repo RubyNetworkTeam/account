@@ -9,6 +9,7 @@ const { port } = config;
 
 var xmlparser = require('express-xml-bodyparser');
 const logger = require('./other/logger');
+const miiRender = require('./routes/mii/mii')
 
 const cookieparser = require('cookie-parser')
 
@@ -32,6 +33,7 @@ app.use(express.urlencoded({extended: false}))
 
 //API
 app.use("/v1", Router)
+app.use("/mii", miiRender)
 app.use(express.static('static'))
 
 
