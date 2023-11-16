@@ -1,8 +1,6 @@
 {
     "port" : 80,
 
-    "webhook_logger" : "",
-
     "mysqlhost" : "",
     "mysqluser" : "",
     "mysqlpassword" : "",
