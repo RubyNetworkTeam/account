@@ -16,12 +16,12 @@ router.post('/', (req, res) => {
     }catch(err){
         console.error(err);
     }
-    res.json({ ok: true })
+    res.send("")
 })
 
 router.get('/', (req, res) => {
     console.log(logger.Get("/v1/api/admin/time"))
-    res.json({ ok: true })
+    res.json('')
 })
 
 module.exports = router;

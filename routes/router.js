@@ -3,6 +3,6 @@ const v1_Router = require("./api/v1/router");
 const {Router} = require("express");
 const ApiRouter = Router();
 
-ApiRouter.use(v1_Router, "/api");
+ApiRouter.use("/api", v1_Router);
 
 module.exports = ApiRouter;
