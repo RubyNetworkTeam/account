@@ -5,18 +5,7 @@ const subdomain = require('express-subdomain')
 const Router = require('./routes/router');
 
 const con = require('./other/mysqlConnection')
-const { port, dbPassword } = config;
-
-
-// Removed unuseful requires
-// const colors = require('colors');
-// const path = require('path')
-// const fetch = require('node-fetch')
-// const fs = require('fs')
-// const xmljs= require('xml-js');
-// const xml = require('xml')
-// const multer = require('multer')
-// const https = require('https')
+const { port } = config;
 
 var xmlparser = require('express-xml-bodyparser');
 const logger = require('./other/logger');
@@ -30,13 +19,9 @@ var app = express();
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
     res.setHeader('Access-Control-Allow-Headers', '*');
-
     res.setHeader('Access-Control-Allow-Credentials', true);
-
     next();
 })
 
