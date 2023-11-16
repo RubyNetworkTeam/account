@@ -18,20 +18,25 @@ const tokenRoute = require('./service')
 const {Router} = require("express");
 const v1_Router = Router(); 
 
-app.use('/content/agreements/Nintendo-Network-EULA/:var/@latest', eulaRoute)
-app.use('/devices/@current/status', statusRoute)
-app.use('/content/time_zones/:var/:var', timezoneRoute)
-app.use('/people', rnidRoute)
-app.use('/people/@me/devices/owner', rnidRoute)
-app.use('/support/validate/email', emailRoute)
-app.use('/admin/time', emailRoute)
-app.use('/people/', peopleRoute)
-app.use('/oauth20/access_token/generate', serviceRoute)
-app.use('/people/@me/profile', infoRoute)
-app.use('/people/@me', infoRoute)
-app.use('/provider/nex_token/@me', gameRoute)
-app.use('/admin/mapped_ids', friendRoute)
-app.use('/people/@me/miis/@primary', miiRoute)
-app.use('/provider/service_token/@me', tokenRoute)
+v1_Router.use((req, res, next) => {
+    res.setHeader('Content-Type', 'application/xml');
+    next();
+})
+
+v1_Router.use('/content/agreements/Nintendo-Network-EULA/:var/@latest', eulaRoute)
+v1_Router.use('/devices/@current/status', statusRoute)
+v1_Router.use('/content/time_zones/:var/:var', timezoneRoute)
+v1_Router.use('/people', rnidRoute)
+v1_Router.use('/people/@me/devices/owner', rnidRoute)
+v1_Router.use('/support/validate/email', emailRoute)
+v1_Router.use('/admin/time', emailRoute)
+v1_Router.use('/people/', peopleRoute)
+v1_Router.use('/oauth20/access_token/generate', serviceRoute)
+v1_Router.use('/people/@me/profile', infoRoute)
+v1_Router.use('/people/@me', infoRoute)
+v1_Router.use('/provider/nex_token/@me', gameRoute)
+v1_Router.use('/admin/mapped_ids', friendRoute)
+v1_Router.use('/people/@me/miis/@primary', miiRoute)
+v1_Router.use('/provider/service_token/@me', tokenRoute)
 
 module.exports = v1_Router;
