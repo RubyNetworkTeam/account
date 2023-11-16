@@ -11,7 +11,6 @@ const query = util.promisify(con.query).bind(con)
 
 router.get('/', (req, res) => {
 	console.log(logger.Get("/v1/api/provider/nex_token/@me"))
-    res.set('Content-Type', 'application/xml')
     res.status = 400;
     return res.send(`<errors>
 	<error>
