@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mii-js": "https://github.com/pretendonetwork/mii-js",
+    "bcrypto": "^5.4.0",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
@@ -20,6 +20,7 @@
     "jimp": "^0.22.10",
     "jpeg-js": "^0.4.4",
     "jsonwebtoken": "^9.0.2",
+    "mii-js": "https://github.com/pretendonetwork/mii-js",
     "moment": "^2.29.4",
     "mysql2": "^3.6.3"
   },
