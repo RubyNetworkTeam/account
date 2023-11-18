@@ -8,7 +8,7 @@ const fs = require('fs')
 const util = require('util')
 const query = util.promisify(con.query).bind(con)
 const bcrypt = require('bcrypt');
-
+const crypto = require('crypto');
 function nintendoPasswordHash(password, pid) {
     const pidBuffer = Buffer.alloc(4);
     pidBuffer.writeUInt32LE(pid);
