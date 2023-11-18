@@ -20,6 +20,7 @@ function xmlError(options, at){
             .ele('message').txt(options.message)
             .up()
         .up()
+        .up()
         .toString()
 }
 

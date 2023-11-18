@@ -3,15 +3,14 @@
  * @file owner.js
  */
 
-const LoginSQL = `SELECT `
+const LoginSQL = `SELECT * FROM accounts WHERE nnid="?"`
 
 const { Router } = require("express");
 const { create } = require("xmlbuilder2")
 const xmlmiddleware = require("../../../middlewares/xml.middleware");
 const { xmlError } = require("../../../other/error");
 const owner_router = Router();
-const {decode, verify} = require("jsonwebtoken");
-
+const {sign} = require("jsonwebtoken");
 
 owner_router.get("/", xmlmiddleware, (req, res) => {
     const Header = req.headers["authorization"];
@@ -28,16 +27,28 @@ owner_router.get("/", xmlmiddleware, (req, res) => {
         res.status(400)
         return res.send(xmlError({
             code: '1105',
-            message: "Invalid authorization token"
+            message: "Invalid authorization token."
         }));
     }
 
-    const tkn = atob(Token);
-    console.log(tkn)
+    const [user, passowrd] = atob(Token).split(" ");
+    
+    if(!user || !passowrd){
+        res.status(400)
+        return res.send(xmlError({
+            code: '1105',
+            message: "Invalid authorization token."
+        }));
+    }
+
+    
+
     return res.send(
         create({version: '1.0'})
         .ele('status')
             .txt('ok!')
+        .ele('credentials')
+            .txt([user, passowrd].toString())
         .up()
         .toString()
     )
