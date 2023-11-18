@@ -43,7 +43,7 @@ router.put('/', async (req, res) => {
     const client_id = req.header("X-Nintendo-Client-ID")
     const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
     const pid = await query(`SELECT pid FROM accounts WHERE nnid="${id}"`);
-    const primaryPasswordHash = util.nintendoPasswordHash(password, pid);
+    const primaryPasswordHash = nintendoPasswordHash(password, pid);
     const passwordHash = await bcrypt.hash(primaryPasswordHash, 10);
     await query(`UPDATE accounts SET password = '${passwordHash}' WHERE nnid = "${id[0].rnid}"`);
     return res.send('')
