@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
 //	</error>
 // </errors>`)
     return res.send(`<nex_token>
-	<host>olv.genebelcher.com</host>
-	<nex_password>landonc0511</nex_password>
-	<pid>1739386479</pid>
-	<port>654</port>
+	<host>72.204.114.65</host>
+	<nex_password>example</nex_password>
+	<pid>2</pid>
+	<port>655</port>
 	<token>oauth</token>
 </nex_token>`);
 })
