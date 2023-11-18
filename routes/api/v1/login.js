@@ -41,14 +41,40 @@ owner_router.get("/", xmlmiddleware, (req, res) => {
         }));
     }
 
-    
+    // Here put the db logic to get the user
+    /**
+     * @type {import("../../../types/User").User[]}
+     */
+    const db_user = [{nnid: "PokerManatee" , password: "unknown"}]
 
+    if(db_user.length == 0){
+        res.status(400)
+        return res.send(xmlError({
+            code: '1105',
+            message: "User invalid or not fount."
+        }));
+    }
+    const [_user] = db_user;
+    // hash logic here
+    let passwordisHashed = _user.password === passowrd;
+    if(!passwordisHashed){
+        res.status(400)
+        return res.send(
+            xmlError(
+                {
+                    code: '1105',
+                    message: 'Email address, username, or password, is not valid.'
+                }
+            )
+        )
+    }
     return res.send(
         create({version: '1.0'})
         .ele('status')
             .txt('ok!')
         .ele('credentials')
             .txt([user, passowrd].toString())
+        .up()
         .up()
         .toString()
     )
