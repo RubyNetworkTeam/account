@@ -7,8 +7,8 @@ const fs = require('fs')
 const util = require('util')
 const query = util.promisify(con.query).bind(con)
 const { nintendoPasswordHash } = require('../../../other/hash');
-
-
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 router.get('/profile', async (req, res) => {
     console.log(logger.Get("/v1/api/people/@me/profile"))
