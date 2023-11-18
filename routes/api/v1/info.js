@@ -7,7 +7,7 @@ const con = require('../../../other/mysqlConnection')
 const fs = require('fs')
 const util = require('util')
 const query = util.promisify(con.query).bind(con)
-var crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
 function nintendoPasswordHash(password, pid) {
     const pidBuffer = Buffer.alloc(4);
