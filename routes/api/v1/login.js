@@ -3,16 +3,28 @@
  * @file owner.js
  */
 
-const LoginSQL = `SELECT * FROM accounts WHERE nnid="?"`
 
+// router
 const { Router } = require("express");
+const owner_router = Router();
+
+// xml
 const { create } = require("xmlbuilder2")
 const xmlmiddleware = require("../../../middlewares/xml.middleware");
 const { xmlError } = require("../../../other/error");
-const owner_router = Router();
-const {sign} = require("jsonwebtoken");
 
-owner_router.get("/", xmlmiddleware, (req, res) => {
+//db
+const {promisify} = require('util')
+const con = require('../../../other/mysqlConnection')
+const query = promisify(con.query).bind(con)
+const LoginSQL = `SELECT * FROM accounts WHERE nnid="?"`
+
+// secrets and security
+const {sign} = require("jsonwebtoken");
+const {jwtSecret} = require('../../../config.json')
+const { nintendoPasswordHash } = require("../../../other/hash");
+
+owner_router.get("/", xmlmiddleware, async (req, res) => {
     const Header = req.headers["authorization"];
     if (!Header) {
         res.status(400)
@@ -41,12 +53,11 @@ owner_router.get("/", xmlmiddleware, (req, res) => {
         }));
     }
 
-    // Here put the db logic to get the user
     /**
      * @type {import("../../../types/User").User[]}
      */
-    const db_user = [{nnid: "PokerManatee" , password: "unknown"}]
-
+    const db_user = await query(LoginSQL.replace('?', user));
+    console.log(db_user);
     if(db_user.length == 0){
         res.status(400)
         return res.send(xmlError({
@@ -55,9 +66,8 @@ owner_router.get("/", xmlmiddleware, (req, res) => {
         }));
     }
     const [_user] = db_user;
-    // hash logic here
-    let passwordisHashed = _user.password === passowrd;
-    if(!passwordisHashed){
+    let passwordisHashed = nintendoPasswordHash(passowrd);
+    if(passwordisHashed !== _user.password){
         res.status(400)
         return res.send(
             xmlError(
@@ -68,6 +78,8 @@ owner_router.get("/", xmlmiddleware, (req, res) => {
             )
         )
     }
+
+    const token = sign({ user, time: Date.now() }, jwtSecret)
     return res.send(
         create({version: '1.0'})
         .ele('status')

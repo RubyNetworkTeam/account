@@ -4,7 +4,7 @@ const util = require('util')
 const con = require('../../../other/mysqlConnection')
 const query = util.promisify(con.query).bind(con)
 const logger = require('../../../other/logger')
-
+const {jwtSecret, refreshTokenSecret} = require("../../../config.json")
 const { sign } = require("jsonwebtoken")
 
 router.post('/', (req, res) => {
@@ -24,8 +24,8 @@ router.post('/', (req, res) => {
 	})
 	pass.then(function (result) {
 		if (result[0].password == password) {
-			const token = sign({ rnid }, "privateKey", { expiresIn: 3600 });
-			const refresh_token = sign({ rnid, time: Date.now() }, "SoVeryprivateKey");
+			const token = sign({ rnid }, refreshTokenSecret, { expiresIn: 3600 });
+			const refresh_token = sign({ rnid, time: Date.now() }, jwtSecret);
 			return res.send(`<?xml version="1.0"?><OAuth20><access_token><token>${token}</token><refresh_token>${refresh_token}</refresh_token><expires_in>3600</expires_in></access_token></OAuth20>`)
 		} else {
 			console.log("Someone didnt login")

@@ -1,27 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const path = require("path");
 const logger = require('../../../other/logger')
 const con = require('../../../other/mysqlConnection')
 
 const fs = require('fs')
 const util = require('util')
 const query = util.promisify(con.query).bind(con)
-var crypto = require('crypto');
+const { nintendoPasswordHash } = require('../../../other/hash');
 
-function nintendoPasswordHash(password, pid) {
-    const pidBuffer = Buffer.alloc(4);
-    pidBuffer.writeUInt32LE(pid);
 
-    const unpacked = Buffer.concat([
-        pidBuffer,
-        Buffer.from('\x02\x65\x43\x46'),
-        Buffer.from(password)
-    ]);
-    const hashed = crypto.createHash('sha256').update(unpacked).digest().toString('hex');
-
-    return hashed;
-}
 
 router.get('/profile', async (req, res) => {
     console.log(logger.Get("/v1/api/people/@me/profile"))
@@ -43,7 +30,7 @@ router.put('/', async (req, res) => {
     const client_id = req.header("X-Nintendo-Client-ID")
     const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
     const pid = await query(`SELECT pid FROM accounts WHERE nnid="${id}"`);
-    const primaryPasswordHash = util.nintendoPasswordHash(password, pid);
+    const primaryPasswordHash = nintendoPasswordHash(password, pid);
     const passwordHash = await bcrypt.hash(primaryPasswordHash, 10);
     await query(`UPDATE accounts SET password = '${passwordHash}' WHERE nnid = "${id[0].rnid}"`);
     return res.send('')
