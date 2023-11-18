@@ -1,27 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const path = require("path");
 const logger = require('../../../other/logger')
 const con = require('../../../other/mysqlConnection')
 
 const fs = require('fs')
 const util = require('util')
 const query = util.promisify(con.query).bind(con)
+const { nintendoPasswordHash } = require('../../../other/hash');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-function nintendoPasswordHash(password, pid) {
-    const pidBuffer = Buffer.alloc(4);
-    pidBuffer.writeUInt32LE(pid);
-
-    const unpacked = Buffer.concat([
-        pidBuffer,
-        Buffer.from('\x02\x65\x43\x46'),
-        Buffer.from(password)
-    ]);
-    const hashed = crypto.createHash('sha256').update(unpacked).digest().toString('hex');
-
-    return hashed;
-}
 
 router.get('/profile', async (req, res) => {
     console.log(logger.Get("/v1/api/people/@me/profile"))
