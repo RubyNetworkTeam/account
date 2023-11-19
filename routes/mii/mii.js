@@ -25,24 +25,14 @@ router.get('/:rpid/:file', async (req, res) => {
     const mii_data = data[0].mii_hash1
     const mii = new Mii(Buffer.from(mii_data, 'base64'))
     let studioUrl = mii.studioUrl()
-    // Universal fix. example arch linux hasn't curl command
-    // and make more faster, because you arent creating and destroying process
-    // see ya!
     const request = await fetch(studioUrl);
-    const _mata = await request.arrayBuffer()
-    const _out = new Uint8Array(_mata)
-    //   const out = execSync(`curl "${studioUrl}"`, {
-    //           stdio: 'pipe'
-    //   })
-    //   console.log(out);
-    //  const mata = out.toString('base64')
-
-    //  var img = Buffer.from(mata, 'base64');
+    const mata = await request.arrayBuffer()
+    const out = new Uint8Array(mata)
    res.writeHead(200, {
      'Content-Type': 'image/png',
-     'Content-Length': _out.length
+     'Content-Length': out.length
    });
-   res.end(_out)
+   res.end(out)
 })
 
 module.exports = router;

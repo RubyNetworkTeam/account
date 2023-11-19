@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     }
     return res.send(`<mapped_ids>
     <mapped_id>
-        <in_id>prodtest</in_id>
+        <in_id>${rnid}</in_id>
         <out_id>${pid[0].pid}</out_id>
     </mapped_id>
 </mapped_ids>`);

@@ -1,0 +1,6 @@
+<errors>
+    <error>
+        <code>1105</code>
+        <message>Email address, username, or password, is not valid</message>
+    </error>
+</errors>

@@ -28,7 +28,6 @@ router.post('/', (req, res) => {
 			const refresh_token = sign({ rnid, time: Date.now() }, jwtSecret);
 			return res.send(`<?xml version="1.0"?><OAuth20><access_token><token>${token}</token><refresh_token>${refresh_token}</refresh_token><expires_in>3600</expires_in></access_token></OAuth20>`)
 		} else {
-			console.log("Someone didnt login")
 			return res.send("<errors> <error> <code>0106</code> <message>Invalid account ID or password</message> </error> </errors>")
 		}
 	})

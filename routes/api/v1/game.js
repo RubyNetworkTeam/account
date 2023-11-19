@@ -12,12 +12,6 @@ const query = util.promisify(con.query).bind(con)
 router.get('/', (req, res) => {
 	console.log(logger.Get("/v1/api/provider/nex_token/@me"))
     res.status = 200;
-//   return res.send(`<errors>
-//	<error>
-//		<code>0123</code>
-// 		<message>Service has expired</message>
-//	</error>
-// </errors>`)
     return res.send(`<nex_token>
 	<host>72.204.114.65</host>
 	<nex_password>example</nex_password>
