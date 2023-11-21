@@ -12,7 +12,6 @@ router.post('/', (req, res) => {
 	const password = req.body.password
 	res.status = 200;
 	const rnid = req.body.user_id
-	console.log(logger.Post("/v1/api/oauth20/access_token/generate"))
 	const pass = query(`SELECT password FROM accounts WHERE nnid="${rnid}"`);
 	const accesed = query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
 	accesed.then(function (result) {

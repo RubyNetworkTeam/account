@@ -9,7 +9,6 @@ const query = util.promisify(con.query).bind(con)
 
 router.get('/:nnid', async (req, res) => {
     const nnid = req.params.nnid;
-    console.log(logger.Get("/v1/api/people/"+nnid))
     const exists = await query(`SELECT * FROM accounts WHERE nnid="${nnid}"`);
     if(exists.length == 0){
        res.status = 200;

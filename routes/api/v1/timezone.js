@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
 
     res.set('Content-Type', 'text/xml')
     res.send(file)
-    console.log(logger.Get("/v1/api/content/time_zones/US/en"))
 })
 
 module.exports = router;

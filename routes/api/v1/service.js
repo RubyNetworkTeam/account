@@ -9,8 +9,6 @@ const util = require('util')
 const query = util.promisify(con.query).bind(con)
 
 router.get('/', async(req, res) => {
-    console.log(logger.Get("/v1/api/provider/service_token/@me"))
-    
     const client_id = req.header("X-Nintendo-Client-ID")
     const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
     const token = await query(`SELECT serviceToken FROM accounts WHERE nnid="${id[0].rnid}"`);

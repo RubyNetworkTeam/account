@@ -3,7 +3,7 @@ const config = require("./config.json");
 const express = require('express');
 const subdomain = require('express-subdomain')
 const Router = require('./routes/router');
-
+const fs = require('fs')
 const con = require('./other/mysqlConnection')
 const { port } = config;
 
@@ -19,11 +19,29 @@ const query = util.promisify(con.query).bind(con)
 var app = express();
 
 app.use(function (req, res, next) {
+    switch (req.method) {
+            case "GET":
+                console.log(logger.Get(req.originalUrl))
+                break;
+            case "POST":
+                console.log(logger.Post(req.originalUrl))
+                break;
+            case "PUT":
+                console.log(logger.Put(req.originalUrl))
+                break;
+            case "DELETE":
+                console.log(logger.Delete(req.originalUrl))
+                break;
+            default:
+                break;
+        }
+    
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
+    
+	next();
 })
 
 app.use(xmlparser())

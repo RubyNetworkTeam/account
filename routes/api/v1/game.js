@@ -10,8 +10,7 @@ const util = require('util')
 const query = util.promisify(con.query).bind(con)
 
 router.get('/', (req, res) => {
-	console.log(logger.Get("/v1/api/provider/nex_token/@me"))
-    res.status = 200;
+	res.status(200)
     return res.send(`<nex_token>
 	<host>72.204.114.65</host>
 	<nex_password>example</nex_password>

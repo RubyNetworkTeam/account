@@ -9,7 +9,6 @@ const fs = require('fs')
 router.get('/', (req, res) => {
    const file = fs.readFileSync(path.resolve(__dirname, "../files/eula.xml"));
     res.send(file)
-    console.log(logger.Get("/v1/api/content/agreements/Nintendo-Network-EULA/US/@latest"))
 })
 
 module.exports = router;

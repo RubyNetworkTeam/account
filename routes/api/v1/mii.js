@@ -7,8 +7,7 @@ const logger = require('../../../other/logger')
 
 // Optimizations
 router.put('/', async (req, res) => {
-    console.log(logger.Put("/v1/api/people/@me/miis/@primary"))
-	res.status = 200;
+    res.status = 200;
     const mii_name = req.body.mii.name
     const mii_hash1 = req.body.mii.data
     const client_id = req.header("X-Nintendo-Client-ID")

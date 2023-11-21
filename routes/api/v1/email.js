@@ -5,7 +5,6 @@ const logger = require('../../../other/logger');
 const { execSync } = require('child_process');
 
 router.post('/', (req, res) => {
-    console.log(logger.Post("/v1/api/support/validate/email"))
     const email = req.body.email
     const domain = String(email).substring(email.lastIndexOf("@") + 1)
     try {

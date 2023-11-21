@@ -10,7 +10,6 @@ const { nintendoPasswordHash } = require('../../../other/hash');
 const crypto = require('crypto');
 
 router.get('/profile', async (req, res) => {
-    console.log(logger.Get("/v1/api/people/@me/profile"))
     res.status = 200;
     const client_id = req.header("X-Nintendo-Client-ID")
     const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);

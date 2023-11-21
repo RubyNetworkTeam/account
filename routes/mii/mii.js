@@ -14,7 +14,6 @@ const Mii = require('mii-js')
 router.get('/:rpid/:file', async (req, res) => {
     const rpid = req.params.rpid;
     const file = req.params.file
-    console.log(logger.Get(`/mii/${rpid}/${file}`))
     res.status = 200;
     const data = await query(`SELECT mii_hash1 FROM accounts WHERE pid="${rpid}"`)
     if (data.length == 0) {

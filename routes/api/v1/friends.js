@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
     const rnid = req.query.input
     let target;
     target = rnid.split(',')
-    console.log(logger.Get("/v1/api/admin/mapped_ids?input_type=user_id&output_type=pid&input=" + target[0]))
     const pid = await query(`SELECT pid FROM accounts WHERE nnid="${target[0]}"`);
     res.status = 200;
     if (pid.length == 0) {

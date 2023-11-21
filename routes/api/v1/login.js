@@ -19,7 +19,7 @@ const LoginSQL = `SELECT * FROM accounts WHERE nnid="?"`
 // secrets and security
 const { nintendoPasswordHash } = require("../../../other/hash");
 
-owner_router.get("/", xmlmiddleware, async (req, res) => {
+owner_router.get("/", async (req, res) => {
     const Header = req.headers["authorization"];
     const file = fs.readFileSync(path.resolve(__dirname, "../files/error.xml"));
     if (!Header) {
