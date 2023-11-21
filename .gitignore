@@ -5,3 +5,5 @@ pnpm-lock.yaml
 yarn.lock
 bun.lockb
 *.ts
+public.pem
+private.pem

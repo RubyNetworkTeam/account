@@ -1,7 +1,6 @@
 {
     "port" : 80,
     "mysqlport": "",
-    "mysqlhost" : "",
     "mysqluser" : "",
     "mysqlpassword" : "",
     "jwtSecret": "",
