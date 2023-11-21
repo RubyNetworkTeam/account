@@ -61,14 +61,7 @@ app.get('/p01/policylist/1/1/:var', (req, res) => {
     res.send(file)
 })
 
-app.get('/v1/topics', (req, res) => {
-    const file = fs.readFileSync('routes/api/files/UNK.xml').toString()
-
-    res.set('Content-Type', 'text/xml')
-    res.send(file)
-})
-
 app.listen(port, async () => {
-    await query("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';")
+    // await query("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';")
     console.log(logger.Info(`Server started on port ${port}`))
 })
