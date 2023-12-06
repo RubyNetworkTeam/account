@@ -5,7 +5,13 @@ const subdomain = require('express-subdomain')
 const Router = require('./routes/router');
 const fs = require('fs')
 const con = require('./other/mysqlConnection')
-const { port } = config;
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('server.key', 'utf8');
+var certificate = fs.readFileSync('server.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+const { httpPort, httpsPort } = config;
 
 var xmlparser = require('express-xml-bodyparser');
 const logger = require('./other/logger');

@@ -5,14 +5,14 @@ const logger = require('./logger');
 
 const mysql = require('mysql2');
 
-const { mysqlport, mysqluser, mysqlpassword, mysqldatabase } = config;
+const { mysqluser, mysqlpassword, mysqldatabase } = config;
 
 var con = mysql.createConnection({
     host: 'localhost',
     user : mysqluser,
     password : mysqlpassword,
     database : mysqldatabase,
-    port: mysqlport,
+    port: '3306',
 })
 
 con.connect((err) => {
