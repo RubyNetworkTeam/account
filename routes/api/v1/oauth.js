@@ -22,11 +22,16 @@ router.post('/', (req, res) => {
 		}
 	})
 	pass.then(function (result) {
+
+        if (result[0] == null) {
+            return res.send("<errors> <error> <code>0106</code> <message>Invalid account ID or password</message> </error> </errors>")
+        }
 		if (result[0].password == password) {
 			const token = sign({ rnid }, refreshTokenSecret, { expiresIn: 3600 });
 			const refresh_token = sign({ rnid, time: Date.now() }, jwtSecret);
 			return res.send(`<?xml version="1.0"?><OAuth20><access_token><token>${token}</token><refresh_token>${refresh_token}</refresh_token><expires_in>3600</expires_in></access_token></OAuth20>`)
 		} else {
+            console.log("Password MisMatch")
 			return res.send("<errors> <error> <code>0106</code> <message>Invalid account ID or password</message> </error> </errors>")
 		}
 	})
