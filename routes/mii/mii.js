@@ -1,4 +1,3 @@
-var fetch
 var addfetch = 0
 
 try {
@@ -10,7 +9,7 @@ try {
 }
 
 if(addfetch != 1 ) {
-    fetch = require('node-fetch')
+    var fetch = require('node-fetch')
 }
 
 const express = require('express')
