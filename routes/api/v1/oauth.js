@@ -3,13 +3,13 @@ const router = express.Router()
 const util = require('util')
 const con = require('../../../other/mysqlConnection')
 const query = util.promisify(con.query).bind(con)
-const logger = require('../../../other/logger')
 const {jwtSecret, refreshTokenSecret} = require("../../../config.json")
 const { sign } = require("jsonwebtoken")
 
 router.post('/', (req, res) => {
 	const client_id = req.header("X-Nintendo-Client-ID")
 	const password = req.body.password
+    console.log(req.body)
 	res.status = 200;
 	const rnid = req.body.user_id
 	const pass = query(`SELECT password FROM accounts WHERE nnid="${rnid}"`);
@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
 		}
 	})
 	pass.then(function (result) {
-
         if (result[0] == null) {
             return res.send("<errors> <error> <code>0106</code> <message>Invalid account ID or password</message> </error> </errors>")
         }
@@ -31,7 +30,6 @@ router.post('/', (req, res) => {
 			const refresh_token = sign({ rnid, time: Date.now() }, jwtSecret);
 			return res.send(`<?xml version="1.0"?><OAuth20><access_token><token>${token}</token><refresh_token>${refresh_token}</refresh_token><expires_in>3600</expires_in></access_token></OAuth20>`)
 		} else {
-            console.log("Password MisMatch")
 			return res.send("<errors> <error> <code>0106</code> <message>Invalid account ID or password</message> </error> </errors>")
 		}
 	})
