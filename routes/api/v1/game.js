@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
 	res.status(200)
     return res.send(`<nex_token>
 	<host>72.204.114.65</host>
-	<nex_password>example</nex_password>
-	<pid>2</pid>
-	<port>655</port>
+	<nex_password>password</nex_password>
+	<pid>1</pid>
+	<port>1223</port>
 	<token>oauth</token>
 </nex_token>`);
 })
