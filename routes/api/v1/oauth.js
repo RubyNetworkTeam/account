@@ -9,7 +9,6 @@ const { sign } = require("jsonwebtoken")
 router.post('/', (req, res) => {
 	const client_id = req.header("X-Nintendo-Client-ID")
 	const password = req.body.password
-    console.log(req.body)
 	res.status = 200;
 	const rnid = req.body.user_id
 	const pass = query(`SELECT password FROM accounts WHERE nnid="${rnid}"`);
