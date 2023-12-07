@@ -37,7 +37,7 @@ v1_Router.use('/people/@me/profile', infoRoute)
 v1_Router.use('/people/@me', infoRoute)
 v1_Router.use('/provider/nex_token/@me', gameRoute)
 v1_Router.use('/admin/mapped_ids', friendRoute)
-v1_Router.use('/people/@me/miis/@primary', miiRoute)
+v1_Router.use('/', miiRoute)
 v1_Router.use('/provider/service_token/@me', tokenRoute)
 v1_Router.use('/people/@me/devices/owner', owner_router);
 
