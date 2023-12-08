@@ -55,6 +55,8 @@ app.use(cookieparser())
 
 app.use(express.urlencoded({extended: false}))
 
+app.disable('x-powered-by');
+
 //API
 app.use("/v1", Router)
 app.use("/mii", miiRender)
