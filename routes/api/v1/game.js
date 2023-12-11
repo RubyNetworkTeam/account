@@ -12,7 +12,7 @@ const query = util.promisify(con.query).bind(con)
 router.get('/', (req, res) => {
 	res.status(200)
     return res.send(`<nex_token>
-	<host>72.204.114.65</host>
+	<host>127.0.0.1</host>
 	<nex_password>password</nex_password>
 	<pid>1</pid>
 	<port>1223</port>
