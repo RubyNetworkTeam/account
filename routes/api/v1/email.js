@@ -1,7 +1,6 @@
 const { Router } = require('express')
 const router = Router()
 const path = require("path");
-const logger = require('../../../other/logger');
 const { execSync } = require('child_process');
 
 router.post('/', (req, res) => {
@@ -19,7 +18,6 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    console.log(logger.Get("/v1/api/admin/time"))
     res.json('')
 })
 

@@ -28,7 +28,7 @@ v1_Router.use('/content/agreements/Nintendo-Network-EULA/:var/@latest', eulaRout
 v1_Router.use('/devices/@current/status', statusRoute)
 v1_Router.use('/content/time_zones/:var/:var', timezoneRoute)
 v1_Router.use('/people', rnidRoute)
-v1_Router.use('/people/@me/devices/owner', rnidRoute)
+v1_Router.use('/people/@me/devices/', rnidRoute)
 v1_Router.use('/support/validate/email', emailRoute)
 v1_Router.use('/admin/time', emailRoute)
 v1_Router.use('/people/', peopleRoute)

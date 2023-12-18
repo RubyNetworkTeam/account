@@ -1,19 +1,15 @@
 const express = require('express')
 const router = express.Router()
 
-const logger = require('../../../other/logger')
-const con = require('../../../other/mysqlConnection')
-
-const util = require('util')
-const query = util.promisify(con.query).bind(con)
+const { query } = require('../../../other/postgresqlConnection')
 
 router.get('/', async (req, res) => {
     const rnid = req.query.input
     let target;
     target = rnid.split(',')
-    const pid = await query(`SELECT pid FROM accounts WHERE nnid="${target[0]}"`);
+    const pid = await query(`SELECT * FROM accounts WHERE "nnid"='${target[0]}'`);
     res.status = 200;
-    if (pid.length == 0) {
+    if (pid == undefined) {
         return res.send(`<mapped_ids>
     <mapped_id>
         <in_id>${rnid}</in_id>
@@ -24,7 +20,7 @@ router.get('/', async (req, res) => {
     return res.send(`<mapped_ids>
     <mapped_id>
         <in_id>${rnid}</in_id>
-        <out_id>${pid[0].pid}</out_id>
+        <out_id>${pid.rows[0].pid}</out_id>
     </mapped_id>
 </mapped_ids>`);
 })

@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const util = require('util')
-const con = require('../../../other/mysqlConnection')
-const query = util.promisify(con.query).bind(con)
-const logger = require('../../../other/logger')
+const { query } = require('../../../other/postgresqlConnection')
 
 // Optimizations
 router.put('/people/@me/miis/@primary', async (req, res) => {
@@ -11,8 +8,8 @@ router.put('/people/@me/miis/@primary', async (req, res) => {
     const mii_name = req.body.mii.name
     const mii_hash1 = req.body.mii.data
     const client_id = req.header("X-Nintendo-Client-ID")
-    const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
-    await query(`UPDATE accounts SET screen_name = '${mii_name}', mii_hash1 = '${mii_hash1}' WHERE nnid = "${id[0].rnid}"`);
+    const id = await query(`SELECT * FROM last_accessed WHERE "id"='${client_id}'`);
+    await query(`UPDATE accounts SET "screen_name" = '${mii_name}', "mii_hash1"='${mii_hash1}' WHERE "nnid"='${id.rows.rnid}'`);
 	return res.send('')
 })
 

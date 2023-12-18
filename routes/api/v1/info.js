@@ -1,20 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const logger = require('../../../other/logger')
-const con = require('../../../other/mysqlConnection')
+const { query } = require('../../../other/postgresqlConnection')
 
 const fs = require('fs')
-const util = require('util')
-const query = util.promisify(con.query).bind(con)
 const { nintendoPasswordHash } = require('../../../other/hash');
 const crypto = require('crypto');
 
 router.get('/profile', async (req, res) => {
     res.status = 200;
     const client_id = req.header("X-Nintendo-Client-ID")
-    const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
+    const id = await query(`SELECT rnid FROM last_accessed WHERE "id"='${client_id}'`);
     let rnid;
-    const account = await query(`SELECT * FROM accounts WHERE nnid="${id[0].rnid}"`);
+    const account = await query(`SELECT * FROM accounts WHERE "nnid"='${id[0].rnid}'`);
     if (account[0].length == 0) {
         return res.send(`<errors>  <error>     <code>0106</code>    <message>Invalid account ID or password</message> </error> </errors>`);
     }
@@ -26,11 +23,10 @@ router.put('/', async (req, res) => {
     res.status = 200;
     const password = req.body.person.password
     const client_id = req.header("X-Nintendo-Client-ID")
-    const id = await query(`SELECT rnid FROM last_accessed WHERE id="${client_id}"`);
-    const pid = await query(`SELECT pid FROM accounts WHERE nnid="${id}"`);
-    const primaryPasswordHash = nintendoPasswordHash(password, pid);
-    const passwordHash = await bcrypt.hash(primaryPasswordHash, 10);
-    await query(`UPDATE accounts SET password = '${passwordHash}' WHERE nnid = "${id[0].rnid}"`);
+    const id = await query(`SELECT * FROM last_accessed WHERE "id"='${client_id}'`);
+    const pid = await query(`SELECT * FROM accounts WHERE "nnid"='${id}'`);
+    const passwordHash = nintendoPasswordHash(password, pid.rows.pid);
+    await query(`UPDATE accounts SET password = '${passwordHash}' WHERE "nnid"='${id.rows.rnid}'`);
     return res.send('')
 })
 

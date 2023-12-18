@@ -2,13 +2,9 @@ const express = require('express')
 const router = express.Router()
 const path = require("path");
 
-const logger = require('../../../other/logger')
-const con = require('../../../other/mysqlConnection')
+const { query } = require('../../../other/postgresqlConnection')
 
 const fs = require('fs')
-const util = require('util')
-const query = util.promisify(con.query).bind(con)
-
 router.get('/', (req, res) => {
 	res.status(200)
     return res.send(`<nex_token>

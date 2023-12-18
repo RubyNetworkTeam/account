@@ -11,10 +11,8 @@ const { Router } = require("express");
 const owner_router = Router();
 
 //db
-const {promisify} = require('util')
-const con = require('../../../other/mysqlConnection')
-const query = promisify(con.query).bind(con)
-const LoginSQL = `SELECT * FROM accounts WHERE nnid="?"`
+const { query } = require('../../../other/postgresqlConnection')
+const LoginSQL = `SELECT * FROM accounts WHERE "nnid"='?'`
 
 // secrets and security
 const { nintendoPasswordHash } = require("../../../other/hash");
@@ -44,13 +42,13 @@ owner_router.get("/", async (req, res) => {
      * @type {import("../../../types/User").User[]}
      */
     const db_user = await query(LoginSQL.replace('?', user));
-    const account = db_user
-    if(db_user.length == 0){
+    const account = db_user.rows
+    if(db_user.rows.length == 0){
         res.status(400)
         return res.send(file)
     }
-    const [_user] = db_user;
-    let passwordHashed = nintendoPasswordHash(password);
+    const [_user] = db_user.rows;
+    let passwordHashed = nintendoPasswordHash(password, _user.pid);
     if(passwordHashed !== _user.password){
         res.status(400)
         return res.send(file)

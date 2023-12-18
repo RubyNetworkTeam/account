@@ -3,8 +3,8 @@
   <has_error>0</has_error>
   <version>1</version>
   <endpoint>
-    <host>olv.genebelcher.com</host>
-    <api_host>olv-api.genebelcher.com</api_host>
+    <host>api.genebelcher.com</host>
+    <api_host>api.genebelcher.com</api_host>
     <portal_host>portal.genebelcher.com</portal_host>
     <n3ds_host>3ds.genebelcher.com</n3ds_host>
   </endpoint>

@@ -1,9 +1,11 @@
 {
     "httpPort" : 80,
     "httpsPort": 443,
-    "mysqluser" : "",
-    "mysqlpassword" : "",
+    "postgresuser" : "",
+    "postgrespassword" : "",
+    "postgreshost": "",
+    "postgresport": 5334,
     "jwtSecret": "",
-    "mysqldatabase" : "",
+    "postgresdatabase" : "",
     "refreshTokenSecret": ""
 }

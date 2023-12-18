@@ -4,7 +4,7 @@ const express = require('express');
 const subdomain = require('express-subdomain')
 const Router = require('./routes/router');
 const fs = require('fs')
-const con = require('./other/mysqlConnection')
+const con = require('./other/postgresqlConnection')
 var http = require('http');
 var https = require('https');
 var privateKey  = fs.readFileSync('server.key', 'utf8');
@@ -18,9 +18,6 @@ const logger = require('./other/logger');
 const miiRender = require('./routes/mii/mii')
 
 const cookieparser = require('cookie-parser')
-
-const util = require('util')
-const query = util.promisify(con.query).bind(con)
 
 var app = express();
 

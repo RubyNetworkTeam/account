@@ -11,8 +11,8 @@ function Info(input) {
     return `(${moment().format("HH:mm:ss")}) [INFO] ${input}`.green
 }
 
-function MySQL(input) {
-    return `(${moment().format("HH:mm:ss")}) [MYSQL] ${input}`.blue
+function Postgresql(input) {
+    return `(${moment().format("HH:mm:ss")}) [Postgresql] ${input}`.blue
 }
 
 function Error(input) {
@@ -35,7 +35,7 @@ module.exports = {
     Get,
     Post,
     Info,
-    MySQL,
+    Postgresql,
     Error,
     Put,
     Delete

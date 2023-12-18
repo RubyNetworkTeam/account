@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const path = require("path");
 
-const logger = require('../../../other/logger')
-
 const fs = require('fs')
 
 router.get('/', (req, res) => {
