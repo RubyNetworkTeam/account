@@ -9,7 +9,7 @@ const { nintendoPasswordHash } = require("../../../other/hash");
 
 const { query } = require('../../../other/postgresqlConnection')
 
-router.get('/:nnid/owner', async (req, res) => {
+router.get('/:nnid', async (req, res) => {
     const nnid = req.params.nnid;
     const exists = await query(`SELECT * FROM accounts WHERE "nnid"='${nnid}'`); 
     if(exists.rows.length == 0){
@@ -21,6 +21,34 @@ router.get('/:nnid/owner', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+        const email = req.body.person.email.address
+        const rnid = req.body.person.user_id
+        const mii_hash = req.body.person.mii.date
+        const screen_name = req.body.person.mii.name
+        const gender = req.body.person.gender
+        const birth_date = req.body.person.birth_date
+        const country = req.body.person.country
+        const create_date = Date.now()
+        const utc_offset = 0
+        const language = req.body.person.language
+        const tz_name = req.body.person.tz_name
+        const region = req.body.person.region
+        var password = req.body.person.password
+        var pid = await query(`SELECT * FROM accounts ORDER BY pid DESC LIMIT 1`);
+	if(pid.rows[0] == null) {
+		pid=1
+	} else {
+		pid=pid.rows[0].pid+1
+	}
+        password = nintendoPasswordHash(password, pid)
+        const quer = `INSERT INTO accounts("pid", "mii_data", "nnid", "screen_name", "gender", "birth_date", "email", "country", "utc_offset", "language", "mii_url", "tz_name", "update_time", "region", "password") VALUES(${pid}, '${mii_hash}', '${rnid}', '${screen_name}', '${gender}', '${birth_date}', '${email}', '${country}', '${utc_offset}', '${language}', 'http://mii.wuhuisland.xyz/mii/${pid}/standard.tga', '${tz_name}', '${birth_date}', '${region}', '${password}')`
+	console.log(quer)
+	await query(quer)
+        const rescon = `<?xml version="1.0"?><person><pid>${pid}</pid></person>`
+        return res.send(rescon)
+})
+
+router.post('/owner', async (req, res) => {
     const Header = req.headers["authorization"];
     const file = fs.readFileSync(path.resolve(__dirname, "../files/error.xml"));
     if (!Header) {

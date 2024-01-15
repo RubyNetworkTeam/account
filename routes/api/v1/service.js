@@ -9,7 +9,8 @@ router.get('/', async(req, res) => {
     const id = await query(`SELECT * FROM last_accessed WHERE "id"='${client_id}'`);
     const token = await query(`SELECT * FROM accounts WHERE "nnid"='${id.rows[0].rnid}'`);
     res.status = 200;
-    result= token.rows.serviceToken ?? "";
+    result= token.rows[0].servicetoken ?? "NoToken";
+    console.log(`<?xml version="1.0"?><service_token><token>${result}</token></service_token>`)
     return res.send(`<?xml version="1.0"?><service_token><token>${result}</token></service_token>`);
 })
 

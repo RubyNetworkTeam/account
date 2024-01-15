@@ -5,6 +5,7 @@ const {jwtSecret, refreshTokenSecret} = require("../../../config.json")
 const { sign } = require("jsonwebtoken")
 
 router.post('/', async (req, res) => {
+	console.log(req)
 	const client_id = req.header("X-Nintendo-Client-ID")
 	const password = req.body.password
 	res.status = 200;
@@ -13,14 +14,14 @@ router.post('/', async (req, res) => {
 	const accesed = query(`SELECT * FROM last_accessed WHERE "id"='${client_id}'`);
 	accesed.then(function (result) {
 		if (result.rows.length == 0) {
-			query(`INSERT INTO last_accessed(rnid, id) VALUE("${rnid}", "${client_id}")`);
+			query(`INSERT INTO last_accessed("rnid", "id") VALUES('${rnid}', '${client_id}')`);
 		} else {
 			query(`UPDATE last_accessed SET "rnid"='${rnid}', "id"='${client_id}'`);
 		}
 	})
 	pass.then(function (result) {
 	result = result.rows[0]
-        if (result.password == null) {
+        if (result == null) {
             return res.send("<errors> <error> <code>0100</code> <message>Invalid account ID or password</message> </error> </errors>")
         }
 		if (result.password == password) {
