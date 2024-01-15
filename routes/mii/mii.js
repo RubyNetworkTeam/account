@@ -34,7 +34,7 @@ router.get('/:rpid/:file', async (req, res) => {
     res.status = 404
     return res.send(`<html><body><style type="text/css">p {word-wrap: break-word;}</style><center><h1 style="font-family: tahoma;">|___=+404+=___|</h1></center><p id="d"></p><script>window.setInterval("document.getElementById('d').innerHTML +=' &#'+Math.floor((Math.random() * 10000) + 1)+';';", 100);</script></body></html>`)
     }
-    const mii_data = data.rows[0].mii_hash1
+    const mii_data = data.rows[0].mii_data
     const mii = new Mii(Buffer.from(mii_data, 'base64'))
     let studioUrl = mii.studioUrl()
     const request = await fetch(studioUrl);

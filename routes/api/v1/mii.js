@@ -9,7 +9,7 @@ router.put('/people/@me/miis/@primary', async (req, res) => {
     const mii_data = req.body.mii.data
     const client_id = req.header("X-Nintendo-Client-ID")
     const id = await query(`SELECT * FROM last_accessed WHERE "id"='${client_id}'`);
-    await query(`UPDATE accounts SET "screen_name" = '${mii_name}', "mii_data"='${mii_data}' WHERE "nnid"='${id.rows.rnid}'`);
+    await query(`UPDATE accounts SET "screen_name" = '${mii_name}', "mii_data"='${mii_data}' WHERE "nnid"='${id.rows[0].rnid}'`);
 	return res.send('')
 })
 
