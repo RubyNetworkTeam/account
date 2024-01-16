@@ -328,20 +328,20 @@ any other jurisdiction of either party's election.]]>
 
          <agree_text>
 
-            <![CDATA[I Accept]]>
+            <![CDATA[Acepto]]>
 
          </agree_text>
 
          <non_agree_text>
 
-            <![CDATA[I Decline]]>
+            <![CDATA[No acepto]]>
 
          </non_agree_text>
 
          <main_text index="1">
 
-            <![CDATA[END-USER LICENSE AGREEMENT
-Last updated: 13/11/23
+            <![CDATA[Acuerdo de licencia de usuario final
+Ultima Actualización: 13/11/23
 This End-User License Agreement (referred to as the "EULA") is a legally binding agreement
 between you, the Licensee, an individual customer or entity, and the Ruby Network, the company,
 and the author of Ruby, the Software, which may include associated media, printed materials, and

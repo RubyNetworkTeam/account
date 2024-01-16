@@ -10,7 +10,6 @@ router.get('/profile', async (req, res) => {
     res.status = 200;
     const client_id = req.header("X-Nintendo-Client-ID")
     const id = await query(`SELECT rnid FROM last_accessed WHERE "id"='${client_id}'`);
-    let rnid;
     const account = await query(`SELECT * FROM accounts WHERE "nnid"='${id[0].rnid}'`);
     if (account[0].length == 0) {
         return res.send(`<errors>  <error>     <code>0106</code>    <message>Invalid account ID or password</message> </error> </errors>`);
