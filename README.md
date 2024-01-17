@@ -3,7 +3,11 @@
 ## 🌿rewrite typescript branch
 It isn't stable for run as main service, im working in adapt all Taken Bons code, it isn't a full rewrite, just an adaptation from js to typescript. 
 
-**⚠ NOT TESTED YET**
+### Cautions
+* **⚠ NOT TESTED YET** It isn't tested yet, i didn't runned the project.
+* **💻 For the moment it's Bun only optimized** Im working with bun on my laptop, but later, i am going to make some nodejs optimizations.
+* **🃏 XML with js2xml.** Use the xml middleware for send xml, i used `js2xml` for make the parsing of responses.
+
 
 Introducing the next-gen account server, a seamless replacement for Nintendo Network! Crafted with love using Node.js and Express, our server ensures a smooth and secure gaming experience for all. Say hello to a world of gaming joy.
 
@@ -23,4 +27,4 @@ Thanks and a big hug to our contributors
 
 
 
-**Made originaly with love by [PokeyManatee4](https://github.com/PokeyManatee4), rewrited by CarlosNunezMX**
+**Made originaly with love by [PokeyManatee4](http00s://github.com/PokeyManatee4), rewrited by CarlosNunezMX**
