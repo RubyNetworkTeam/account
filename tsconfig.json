@@ -5,9 +5,8 @@
       "target": "ESNext",
       "module": "ESNext",
       "moduleDetection": "force",
-      "jsx": "react-jsx", // support JSX
+      "jsx": "react", // support JSX
       "allowJs": true, // allow importing `.js` from `.ts`
-  
       // Bundler mode
       "moduleResolution": "bundler",
       "allowImportingTsExtensions": true,
