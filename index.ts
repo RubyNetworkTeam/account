@@ -1,12 +1,19 @@
+// Database connection
+import './other/postgresqlConnection';
+
 // Imports :D dont touch it
-import config from "./config.json";
 import express from 'express';
-import {ApiRouter} from './routes/router';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import './other/postgresqlConnection';
 import xmlparser from 'express-xml-bodyparser';
+import cookieparser from  'cookie-parser';
+
+import config from "./config.json";
+import {Info, Middleware} from  './other/logger';
+import {ApiRouter} from './routes/router';
+import {MiiRouter} from  './routes/mii/mii';
+import { XMLMiddelware } from "./other/jsxml";
 
 // i won't remove that now
 //import subdomain from 'express-subdomain';
@@ -17,20 +24,18 @@ const certificate = fs.readFileSync('server.crt', 'utf8');
 const credentials = {key: privateKey, cert: certificate};
 const { httpPort, httpsPort } = config;
 
-import {Info, Middleware} from  './other/logger';
-import {MiiRouter} from  './routes/mii/mii';
-import cookieparser from  'cookie-parser';
-import { XMLMiddelware } from "./other/jsxml";
 
 const app = express();
 
+// Own Middlewares
 app.use(XMLMiddelware);
 app.use(Middleware);
 
+// Body parsers
 app.use(xmlparser())
 app.use(cookieparser())
-
 app.use(express.urlencoded({extended: false}))
+
 
 app.disable('x-powered-by');
 
@@ -39,13 +44,13 @@ app.use("/v1", ApiRouter)
 app.use("/mii", MiiRouter)
 app.use(express.static('static'))
 
-app.get('/p01/policylist/1/1/:var', (req, res) => {
+app.get('/p01/policylist/1/1/:var', (_, res) => {
     const file = fs.readFileSync('routes/api/files/UNK.xml').toString()
-
     res.set('Content-Type', 'text/xml')
     res.send(file)
 })
 
+// Servers creation
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
