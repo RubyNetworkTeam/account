@@ -3,9 +3,9 @@
   <has_error>0</has_error>
   <version>1</version>
   <endpoint>
-    <host>api.genebelcher.com</host>
-    <api_host>api.genebelcher.com</api_host>
-    <portal_host>portal.genebelcher.com</portal_host>
-    <n3ds_host>3ds.genebelcher.com</n3ds_host>
+    <host>olvapi.wuhuisland.xyz</host>
+    <api_host>olvapi.wuhuisland.xyz</api_host>
+    <portal_host>grape.wuhuisland.xyz</portal_host>
+    <n3ds_host>3ds.wuhuisland.xyz</n3ds_host>
   </endpoint>
 </result>
