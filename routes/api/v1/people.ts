@@ -1,25 +1,47 @@
+import express from 'express';
 import type { Request, Response } from "express";
 
-const express = require('express')
 const router = express.Router()
-const { query } = require('../../../other/postgresqlConnection')
-const { nintendoPasswordHash } = require("../../../other/hash");
+
+import query from '../../../other/postgresqlConnection';
+import { nintendoPasswordHash } from "../../../other/hash";
+
+type PeopleBody = {
+	person: {
+		email: {
+			address: string;
+		};
+		user_id: string;
+		mii: {
+			date: string;
+			name: string;
+		};
+		gender: string;
+		birth_date: string;
+		country: string;
+		language: string;
+		tz_name: string;
+		region: string;
+		password: string;
+	}
+}
 
 router.post('/', async (req: Request, res: Response) => {
-	const email = req.body.person.email.address
-	const rnid = req.body.person.user_id
-	const mii_hash = req.body.person.mii.date
-	const screen_name = req.body.person.mii.name
-	const gender = req.body.person.gender
-	const birth_date = req.body.person.birth_date
-	const country = req.body.person.country
+	const body: PeopleBody = req.body;
+	const email = body.person.email.address
+	const rnid = body.person.user_id
+	const mii_hash = body.person.mii.date
+	const screen_name = body.person.mii.name
+	const gender = body.person.gender
+	const birth_date = body.person.birth_date
+	const country = body.person.country
 	const create_date = Date.now()
 	const utc_offset = 0
-	const language = req.body.person.language
-	const tz_name = req.body.person.tz_name
-	const region = req.body.person.region
-	var password = req.body.person.password
-	var pid = await query(`SELECT * FROM accounts ORDER BY pid DESC LIMIT 1`);
+	const language = body.person.language
+	const tz_name = body.person.tz_name
+	const region = body.person.region
+	var password = body.person.password;
+	var pid = await query({text: 'SELECT * FROM accounts ORDER BY pid DESC LIMIT 1'});
 	pid=pid.rows[0].pid+1
 	if(pid == null) {
 		pid=0
