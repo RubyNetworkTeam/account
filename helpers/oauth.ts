@@ -7,3 +7,11 @@ export function OAuthHelper(token: string, refresh_token: string){
         }
     }
 }
+
+export function ServiceTokenHelper(token: string){
+    return {
+        service_token: {
+            token
+        }
+    };
+}

@@ -4,11 +4,11 @@ export type User = {
     mii_hash: string;
     nnid: string;
     screen_name: string;
-    // idk if nintendo network allows another gender srry
+    /** idk if nintendo network allows another gender srry */
     gender: "M" | "F";
-    // format year-month-day
+    /** format year-month-day */
     birth_date: string;
-    // format: year-month-day + T + hour:minute:second
+    /** format: year-month-day + T + hour:minute:second */
     create_date: string;
     email: string;
     id: string;
@@ -17,7 +17,7 @@ export type User = {
     language: string;
     mii_url: string;
     tz_name: string;
-    // format: year-month-day + T + hour:minute:second
+    /** format: year-month-day + T + hour:minute:second */
     update_time: string;
     region: number;
     serviceToken: string;

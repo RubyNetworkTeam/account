@@ -15,3 +15,12 @@ export const AccountOauthError = {
         }
     }
 }
+
+export const AccountCreatedError = {
+    errors: {
+        error: {
+            code: "0100",
+            message: "Account ID already exists"
+        }
+    }
+};
