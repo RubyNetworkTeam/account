@@ -1,7 +1,7 @@
 export type User = {
     pid: number;
-    mii_hash1: string;
-    mii_hash2: string;
+    mii_data: string;
+    mii_hash: string;
     nnid: string;
     screen_name: string;
     // idk if nintendo network allows another gender srry
