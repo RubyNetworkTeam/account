@@ -19,7 +19,7 @@ const LoginSQL = `SELECT * FROM accounts WHERE "nnid"='?'`
 
 // secrets and security
 import { nintendoPasswordHash } from "../../../other/hash";
-import { LoginResponse } from "../../../helpers/login";
+import { InfoHelper } from "../../../helpers/info";
 
 owner_router.get("/", async (req, res) => {
     const Header = req.headers["authorization"];
@@ -55,7 +55,7 @@ owner_router.get("/", async (req, res) => {
         return res.send(file)
     }
 
-    return res.xml(LoginResponse(account));
+    return res.xml(InfoHelper(account));
 })
 
 

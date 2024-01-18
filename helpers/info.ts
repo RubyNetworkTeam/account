@@ -1,6 +1,6 @@
 import type { User } from "../types/user";
 
-export function LoginResponse(account: User){
+export function InfoHelper(account: User){
     return {
         person: {
             active_flag: "Y",
@@ -12,6 +12,7 @@ export function LoginResponse(account: User){
             language: account.language,
             updated: account.update_time,
             marketing_flag: "N",
+            off_device_flag: "Y",
             off_device: "Y",
             pid: account.pid,
             email: {
