@@ -1,8 +1,9 @@
-import { Request, Response, Router } from 'express';
-import path from "path";
+import type {Request, Response} from 'express';
+
+import { Router } from 'express';
 import { execSync } from 'child_process';
 
-import { Error } from '../../../other/logger';
+import { Error, Info } from '../../../other/logger';
 
 const router = Router()
 
@@ -14,16 +15,17 @@ router.post('/', (req: Request, res: Response) => {
             stdio: 'pipe'
         })
         console.log(
-            Error(ping.toString())
+            Info(ping.toString())
         );
 
     } catch (err) {
+        // @ts-ignore
         console.error(Error(err));
     }
     res.send("");
 })
 
-router.get('/', (req, res) => {
+router.get('/', (_, res) => {
     res.json('')
 })
 
