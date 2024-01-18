@@ -52,4 +52,4 @@ router.post('/', async (req: Request, res: Response) => {
 	return res.send(rescon)
 })
 
-module.exports = router;
+export default router;

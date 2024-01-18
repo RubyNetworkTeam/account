@@ -1,5 +1,7 @@
+// types
 import type {Request, Response} from 'express';
 
+// imports
 import { Router } from 'express';
 import { execSync } from 'child_process';
 

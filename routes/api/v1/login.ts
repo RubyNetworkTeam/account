@@ -1,8 +1,9 @@
 /**
  * @author CarlosNunezMX
- * @file owner.js
+ * @file login.ts
  */
 
+// types
 import type { User } from "../../../types/user";
 
 import path from "path";
@@ -43,11 +44,11 @@ owner_router.get("/", async (req, res) => {
     }
 
     const db_user = await query<User>({text: LoginSQL.replace('?', user)});
-    if(db_user.rows.length == 0){
+    const [account] = db_user.rows;
+    if(!account){
         res.status(400)
         return res.send(file)
     }
-    const [account] = db_user.rows;
     let passwordHashed = nintendoPasswordHash(password, account.pid);
     if(passwordHashed !== account.password){
         res.status(400)

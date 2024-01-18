@@ -1,5 +1,8 @@
-import express from 'express'
+// types
 import type { Request, Response } from 'express';
+
+// imports
+import express from 'express'
 import path from "path";
 import fs from 'fs';
 

@@ -26,9 +26,9 @@ export function LoginResponse(account: User){
             },
             mii: {
                 status: "COMPLETED",
-                data: account.mii_hash1,
+                data: account.mii_data,
                 id: 1816791782,
-                mii_hash: account.mii_hash2,
+                mii_hash: account.mii_hash,
                 mii_images: {
                     mii_image: {
                         cached_url: account.mii_url,

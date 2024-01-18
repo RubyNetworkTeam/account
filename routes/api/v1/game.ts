@@ -4,7 +4,7 @@ import express from 'express';
 const router = express.Router()
 
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (_: Request, res: Response) => {
 	res.status(200)
 	return res.xml({
 		nex_token: {
@@ -17,4 +17,4 @@ router.get('/', (req: Request, res: Response) => {
 	});
 })
 
-module.exports = router;
+export default router;
