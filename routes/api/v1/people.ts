@@ -1,33 +1,19 @@
-import express from 'express';
+// types
 import type { Request, Response } from "express";
+import type { User } from '../../../types/user';
+
+// imports
+import express from 'express';
+import query from '../../../other/postgresqlConnection';
+import { nintendoPasswordHash } from "../../../other/hash";
+import type { AccountInfoResponse } from "../../../types/account_info";
+import { PeopleHelper } from "../../../helpers/people";
 
 const router = express.Router()
 
-import query from '../../../other/postgresqlConnection';
-import { nintendoPasswordHash } from "../../../other/hash";
-
-type PeopleBody = {
-	person: {
-		email: {
-			address: string;
-		};
-		user_id: string;
-		mii: {
-			date: string;
-			name: string;
-		};
-		gender: string;
-		birth_date: string;
-		country: string;
-		language: string;
-		tz_name: string;
-		region: string;
-		password: string;
-	}
-}
-
 router.post('/', async (req: Request, res: Response) => {
-	const body: PeopleBody = req.body;
+	// account info
+	const body: AccountInfoResponse = req.body;
 	const email = body.person.email.address
 	const rnid = body.person.user_id
 	const mii_hash = body.person.mii.date
@@ -40,16 +26,21 @@ router.post('/', async (req: Request, res: Response) => {
 	const language = body.person.language
 	const tz_name = body.person.tz_name
 	const region = body.person.region
-	var password = body.person.password;
-	var pid = await query({text: 'SELECT * FROM accounts ORDER BY pid DESC LIMIT 1'});
-	pid=pid.rows[0].pid+1
-	if(pid == null) {
-		pid=0
-	}
+	let password = body.person.password;
+
+	// queries
+	const pid_query = await query<User>({ text: 'SELECT * FROM accounts ORDER BY pid DESC LIMIT 1' });
+	let pid = pid_query.rows[0].pid + 1;
+	if (pid == null)
+		pid = 0
 	password = nintendoPasswordHash(password, pid)
-	await query(`INSERT INTO accounts(pid, mii_hash1, nnid, screen_name, gender, birth_date, create_date, email, country, utc_offset, language, mii_url, tz_name, update_time, region, serviceToken, password) VALUES(${pid+1}, "${mii_hash}", "${rnid}", "${screen_name}", "${gender}", "${create_date}", "${email}", "${country}", "${utc_offset}", "${language}", "http://mii.genebelcher.com/mii/${pid}/standard.tga", "${tz_name}", "${create_date}", "${region}", "", "${password}")`);
-	const rescon = `<?xml version="1.0"?><person><pid>${pid}</pid></person>`
-	return res.send(rescon)
+
+	// TODO: take out the query into a function
+	// FIX: Added birth_date to query
+	await query({text: `INSERT INTO accounts(pid, mii_hash1, nnid, screen_name, gender, birth_date, create_date, email, country, utc_offset, language, mii_url, tz_name, update_time, region, serviceToken, password) VALUES(${pid + 1}, "${mii_hash}", "${rnid}", "${screen_name}", "${gender}", "${birth_date}" ,"${create_date}", "${email}", "${country}", "${utc_offset}", "${language}", "http://mii.genebelcher.com/mii/${pid}/standard.tga", "${tz_name}", "${create_date}", "${region}", "", "${password}")`});
+	return res.xml(PeopleHelper(pid), {
+		header: true
+	})
 })
 
 export default router;
