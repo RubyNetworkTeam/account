@@ -14,12 +14,9 @@
   "dependencies": {
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
-    "crypto": "^1.0.1",
     "express": "^4.18.2",
     "express-subdomain": "^1.0.5",
     "express-xml-bodyparser": "^0.3.0",
-    "jimp": "^0.22.10",
-    "jpeg-js": "^0.4.4",
     "jsonwebtoken": "^9.0.2",
     "mii-js": "https://github.com/pretendonetwork/mii-js",
     "moment": "^2.29.4",
