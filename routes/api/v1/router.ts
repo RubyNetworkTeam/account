@@ -1,25 +1,29 @@
 // Router for /api/v1
 
-const eulaRoute = require('./eula')
-const statusRoute = require('./status')
-const timezoneRoute = require('./timezone')
-const rnidRoute = require('./rnid')
-const emailRoute = require('./email')
-const peopleRoute = require('./people')
-const serviceRoute = require('./oauth')
-const infoRoute = require('./info')
-const gameRoute = require('./game')
-const friendRoute = require('./friends')
-const miiRoute = require('./mii')
-const tokenRoute = require('./service')
+// types
+import type { NextFunction, Request, Response } from "express"
+
+// Routes
+import eulaRoute from './eula'
+import statusRoute from './status'
+import timezoneRoute from './timezone'
+import rnidRoute from './rnid'
+import emailRoute from './email'
+import peopleRoute from './people'
+import serviceRoute from './oauth'
+import infoRoute from './info'
+import gameRoute from './game'
+import friendRoute from './friends'
+import miiRoute from './mii'
+import tokenRoute from './service'
 
 // Import express router
-
-const {Router} = require("express");
-const { owner_router } = require('./login')
+import { Router } from "express"
+import { owner_router } from './login'
 const v1_Router = Router(); 
 
-v1_Router.use((req, res, next) => {
+// Middleware for setting content type
+v1_Router.use((_: Request, res: Response, next: NextFunction) => {
     res.setHeader('Content-Type', 'application/xml');
     next();
 })
@@ -41,4 +45,4 @@ v1_Router.use('/', miiRoute)
 v1_Router.use('/provider/service_token/@me', tokenRoute)
 v1_Router.use('/people/@me/devices/owner', owner_router);
 
-module.exports = v1_Router;
+export {v1_Router};

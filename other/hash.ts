@@ -1,11 +1,8 @@
-const crypto = require('crypto');
-/**
- * @author Pretendo Network Team
- * @param {string} password 
- * @param {number} pid 
- * @returns {string} hashed password
+import crypto from 'crypto';
+/** 
+ * @returns Hashed password
  */
-function nintendoPasswordHash(password, pid) {
+export function nintendoPasswordHash(password: string, pid: number): string {
     const pidBuffer = Buffer.alloc(4);
     pidBuffer.writeUInt32LE(pid);
 
@@ -18,5 +15,3 @@ function nintendoPasswordHash(password, pid) {
 
     return hashed;
 }
-
-module.exports = { nintendoPasswordHash }

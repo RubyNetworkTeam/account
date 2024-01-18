@@ -18,6 +18,7 @@
     "express-subdomain": "^1.0.5",
     "express-xml-bodyparser": "^0.3.0",
     "jsonwebtoken": "^9.0.2",
+    "jstoxml": "^3.2.10",
     "mii-js": "https://github.com/pretendonetwork/mii-js",
     "moment": "^2.29.4",
     "node-fetch": "^2.7.0",
