@@ -1,13 +1,21 @@
+// types
 import type { Request, Response } from "express"
+import type { User } from "../../../types/user"
+
+//imports
 import express from 'express'
 
+import jwt from "jsonwebtoken"
+const sign = jwt.sign
 
-import query from '../../../other/postgresqlConnection'
-import { jwtSecret, refreshTokenSecret } from "../../../config.json"
-import { sign } from "jsonwebtoken"
-import type { User } from "../../../types/user"
-import { AccountOauthError, ProfileError } from "../../../helpers/errors"
-import { OAuthHelper } from "../../../helpers/oauth"
+import query from '../../../other/postgresqlConnection.js'
+import { AccountOauthError, ProfileError } from "../../../helpers/errors.js"
+import { OAuthHelper } from "../../../helpers/oauth.js"
+
+// importing configs
+import { default as config } from "../../../../config.json" assert {type: "json"}
+const jwtSecret = config.jwtSecret;
+const refreshTokenSecret = config.refreshTokenSecret;
 
 const router = express.Router()
 
@@ -17,6 +25,8 @@ router.post('/', async (req: Request, res: Response) => {
 	const rnid = req.body.user_id;
 	const pass = query<User>({ text: `SELECT * FROM accounts WHERE "nnid"='${rnid}'` });
 	const accesed = query({ text: `SELECT * FROM last_accessed WHERE "id"='${client_id}'` });
+	// TODO: Add types
+	// @ts-ignore
 	accesed.then(function (result) {
 		if (result.rows.length == 0) {
 			query({ text: `INSERT INTO last_accessed(rnid, id) VALUE("${rnid}", "${client_id}")` });

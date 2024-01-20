@@ -2,8 +2,8 @@
 import 'colors';
 import pg from 'pg';
 
-import config from "../config.json";
-import { Postgresql } from './logger';
+import {default as config} from "../../config.json" assert {type: "json"};
+import { Postgresql } from './logger.js';
 
 const { postgresuser, postgrespassword, postgresdatabase, postgresport, postgreshost } = config;
 

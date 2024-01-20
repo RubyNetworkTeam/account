@@ -4,22 +4,22 @@
 import type { NextFunction, Request, Response } from "express"
 
 // Routes
-import eulaRoute from './eula'
-import statusRoute from './status'
-import timezoneRoute from './timezone'
-import rnidRoute from './rnid'
-import emailRoute from './email'
-import peopleRoute from './people'
-import serviceRoute from './oauth'
-import infoRoute from './info'
-import gameRoute from './game'
-import friendRoute from './friends'
-import miiRoute from './mii'
-import tokenRoute from './service'
+import eulaRoute from './eula.js'
+import statusRoute from './status.js'
+import timezoneRoute from './timezone.js'
+import rnidRoute from './rnid.js'
+import emailRoute from './email.js'
+import peopleRoute from './people.js'
+import serviceRoute from './oauth.js'
+import infoRoute from './info.js'
+import gameRoute from './game.js'
+import friendRoute from './friends.js'
+import miiRoute from './mii.js'
+import tokenRoute from './service.js'
 
 // Import express router
 import { Router } from "express"
-import { owner_router } from './login'
+import { owner_router } from './login.js'
 const v1_Router = Router(); 
 
 // Middleware for setting content type

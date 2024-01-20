@@ -1,7 +1,7 @@
 import {Router} from "express";
 
-import {v1_Router} from "./api/v1/router";
-import endpointRoute from "./api/v1/endpoint";
+import {v1_Router} from "./api/v1/router.js";
+import endpointRoute from "./api/v1/endpoint.js";
 
 export const ApiRouter = Router();
 

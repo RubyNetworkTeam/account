@@ -1,10 +1,5 @@
-import colors from 'colors';
+import type { NextFunction, Request, Response } from 'express';
 import moment from 'moment';
-import { NextFunction, Request, Response } from 'express';
-
-
-// unused import migth be deleted
-import config from '../config.json';
 
 export function Get(input: string) {
     return `(${moment().format("HH:mm:ss")}) [GET] ${input}`.green
@@ -43,6 +38,7 @@ const Methods = {
 export function Middleware(req: Request, res: Response, next: NextFunction){
     if(!req.method)
         return next();
+    // @ts-ignore
     const Method = Methods[req.method] ?? Methods["INFO"];
     console.log(Method(req.originalUrl));
     

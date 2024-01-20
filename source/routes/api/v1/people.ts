@@ -1,13 +1,13 @@
 // types
 import type { Request, Response } from "express";
 import type { User } from '../../../types/user';
+import type { AccountInfoResponse } from "../../../types/account_info";
 
 // imports
 import express from 'express';
-import query from '../../../other/postgresqlConnection';
-import { nintendoPasswordHash } from "../../../other/hash";
-import type { AccountInfoResponse } from "../../../types/account_info";
-import { PeopleHelper } from "../../../helpers/people";
+import query from '../../../other/postgresqlConnection.js';
+import { nintendoPasswordHash } from "../../../other/hash.js";
+import { PeopleHelper } from "../../../helpers/people.js";
 
 const router = express.Router()
 

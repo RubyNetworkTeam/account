@@ -5,7 +5,7 @@ import type {Request, Response} from 'express';
 import { Router } from 'express';
 import { execSync } from 'child_process';
 
-import { Error, Info } from '../../../other/logger';
+import { Error, Info } from '../../../other/logger.js';
 
 const router = Router()
 

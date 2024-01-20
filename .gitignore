@@ -6,3 +6,4 @@ yarn.lock
 bun.lockb
 server.key
 server.crt
+dist

@@ -4,8 +4,8 @@ import type { User } from "../../../types/user"
 
 // imports
 import express from 'express'
-import query from '../../../other/postgresqlConnection'
-import { FriendHelper } from "../../../helpers/friends"
+import query from '../../../other/postgresqlConnection.js'
+import { FriendHelper } from "../../../helpers/friends.js"
 
 const router = express.Router()
 

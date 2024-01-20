@@ -11,7 +11,7 @@ import express from 'express';
 // @ts-ignore
 import Mii from 'mii-js';
 
-import query from '../../other/postgresqlConnection';
+import query from '../../other/postgresqlConnection.js';
 
 export const MiiRouter = express.Router()
 

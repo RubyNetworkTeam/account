@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
 import express from 'express';
-import query from '../../../other/postgresqlConnection';
-import { ServiceTokenHelper } from '../../../helpers/oauth';
+import query from '../../../other/postgresqlConnection.js';
+import { ServiceTokenHelper } from '../../../helpers/oauth.js';
 
 const router = express.Router()
 

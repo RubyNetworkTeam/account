@@ -6,10 +6,10 @@ import { Router} from 'express';
 import { resolve } from "path";
 import { readFileSync } from 'fs';
 
-import { nintendoPasswordHash } from "../../../other/hash";
-import query from '../../../other/postgresqlConnection';
-import { AccountCreatedError } from '../../../helpers/errors';
-import { InfoHelper } from '../../../helpers/info';
+import { nintendoPasswordHash } from "../../../other/hash.js";
+import query from '../../../other/postgresqlConnection.js';
+import { AccountCreatedError } from '../../../helpers/errors.js';
+import { InfoHelper } from '../../../helpers/info.js';
 
 const LoginSQL = `SELECT * FROM accounts WHERE "nnid"='?'`
 

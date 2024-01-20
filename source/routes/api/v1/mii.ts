@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import express from 'express';
 const router = express.Router()
-import query from '../../../other/postgresqlConnection';
+import query from '../../../other/postgresqlConnection.js';
 
 // added types
 type MiiBody = {

@@ -1,5 +1,5 @@
 // Database connection
-import './other/postgresqlConnection';
+import './other/postgresqlConnection.js';
 
 // Imports :D dont touch it
 import express from 'express';
@@ -9,11 +9,11 @@ import https from 'https';
 import xmlparser from 'express-xml-bodyparser';
 import cookieparser from  'cookie-parser';
 
-import config from "./config.json";
-import {Info, Middleware} from  './other/logger';
-import {ApiRouter} from './routes/router';
-import {MiiRouter} from  './routes/mii/mii';
-import { XMLMiddelware } from "./other/jsxml";
+import config from "../config.json" assert {type: "json"}
+import {Info, Middleware} from  './other/logger.js';
+import {ApiRouter} from './routes/router.js';
+import {MiiRouter} from  './routes/mii/mii.js';
+import { XMLMiddelware } from "./other/jsxml.js";
 
 // i won't remove that now
 //import subdomain from 'express-subdomain';

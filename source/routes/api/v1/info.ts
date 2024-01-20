@@ -3,10 +3,10 @@ import type { User } from '../../../types/user';
 import type { Request, Response } from 'express';
 // imports
 import express from 'express';
-import { nintendoPasswordHash } from '../../../other/hash';
-import query from '../../../other/postgresqlConnection';
-import { ProfileError } from '../../../helpers/errors';
-import { InfoHelper } from '../../../helpers/info';
+import { nintendoPasswordHash } from '../../../other/hash.js';
+import query from '../../../other/postgresqlConnection.js';
+import { ProfileError } from '../../../helpers/errors.js';
+import { InfoHelper } from '../../../helpers/info.js';
 
 const router = express.Router()
 

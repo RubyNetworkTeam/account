@@ -14,12 +14,12 @@ import { Router } from "express";
 export const owner_router = Router();
 
 //db
-import query from '../../../other/postgresqlConnection';
+import query from '../../../other/postgresqlConnection.js';
 const LoginSQL = `SELECT * FROM accounts WHERE "nnid"='?'`
 
 // secrets and security
-import { nintendoPasswordHash } from "../../../other/hash";
-import { InfoHelper } from "../../../helpers/info";
+import { nintendoPasswordHash } from "../../../other/hash.js";
+import { InfoHelper } from "../../../helpers/info.js";
 
 owner_router.get("/", async (req, res) => {
     const Header = req.headers["authorization"];
