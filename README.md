@@ -35,3 +35,5 @@ You could check the issue in the main repo of RubyNetwork Team.
 
 
 **Made originaly with love by [PokeyManatee4](http00s://github.com/PokeyManatee4), and rewrited by CarlosNunezMX**
+
+Hope to see you later in discord.
