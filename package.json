@@ -2,28 +2,39 @@
   "name": "ruby",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
+    "start:bun": "bun shouko.js run",
+    "start:node": "node shouko.js run",
+    "build:bun": "bun shouko.js build",
+    "build:node": "node shouko.js build",
     "generateCert": "openssl genrsa 2048 > server.key && openssl req -new -x509 -nodes -sha256 -days 365 -key server.key -out server.crt"
-  },
+  },  
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
-    "crypto": "^1.0.1",
     "express": "^4.18.2",
     "express-subdomain": "^1.0.5",
     "express-xml-bodyparser": "^0.3.0",
-    "jimp": "^0.22.10",
-    "jpeg-js": "^0.4.4",
     "jsonwebtoken": "^9.0.2",
+    "jstoxml": "^3.2.10",
     "mii-js": "https://github.com/pretendonetwork/mii-js",
     "moment": "^2.29.4",
     "node-fetch": "^2.7.0",
     "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.6",
+    "@types/express": "^4.17.21",
+    "@types/express-xml-bodyparser": "^0.3.5",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/jstoxml": "^2.0.4",
+    "@types/node": "^20.11.5",
+    "@types/pg": "^8.10.9",
+    "typescript": "^5.3.3"
   }
 }
