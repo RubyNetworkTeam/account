@@ -12,7 +12,8 @@ const postconfig: pg.ClientConfig = {
 	password: postgrespassword,
 	host: postgreshost,
 	database: postgresdatabase,
-	port: postgresport
+	port: postgresport,
+	application_name: "Ruby Network Server"
 }
 
 const client: pg.Client = new pg.Client(postconfig)
