@@ -7,7 +7,7 @@ import { resolve } from "path";
 import { readFileSync } from 'fs';
 
 import { nintendoPasswordHash } from "../../../other/hash.js";
-import query from '../../../other/postgresqlConnection.js';
+import client from '../../../other/postgresqlConnection.js';
 import { AccountCreatedError } from '../../../helpers/errors.js';
 import { InfoHelper } from '../../../helpers/info.js';
 
@@ -15,9 +15,9 @@ const LoginSQL = `SELECT * FROM accounts WHERE "nnid"='?'`
 
 const router = Router()
 
-router.get('/:nnid/owner', async (req, res: Response) => {
+router.get('/:nnid', async (req, res: Response) => {
     const nnid = req.params.nnid;
-    const exists = await query({text: `SELECT * FROM accounts WHERE "nnid"='${nnid}'`}); 
+    const exists = await client.query({text: `SELECT * FROM accounts WHERE "nnid"='${nnid}'`}); 
     if(exists.rows.length == 0){
        res.status(200);
        return res.send('');
@@ -26,7 +26,7 @@ router.get('/:nnid/owner', async (req, res: Response) => {
     res.xml(AccountCreatedError);
 })
 
-router.post('/', async (req, res) => {
+router.post('/owner', async (req, res) => {
     const Header = req.headers["authorization"];
     const file = readFileSync(resolve(__dirname, "../files/error.xml"));
     if (!Header) {
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
         return res.send(file)
     }
 
-    const db_user = await query<User>({text: LoginSQL.replace('?', user)});
+    const db_user = await client.query<User>({text: LoginSQL.replace('?', user)});
     const [account] = db_user.rows;
     if(!account){
         res.status(400)

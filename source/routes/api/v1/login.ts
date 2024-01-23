@@ -14,7 +14,7 @@ import { Router } from "express";
 export const owner_router = Router();
 
 //db
-import query from '../../../other/postgresqlConnection.js';
+import client from '../../../other/postgresqlConnection.js';
 const LoginSQL = `SELECT * FROM accounts WHERE "nnid"='?'`
 
 // secrets and security
@@ -43,7 +43,7 @@ owner_router.get("/", async (req, res) => {
         return res.send(file)
     }
 
-    const db_user = await query<User>({text: LoginSQL.replace('?', user)});
+    const db_user = await client.query<User>({text: LoginSQL.replace('?', user)});
     const [account] = db_user.rows;
     if(!account){
         res.status(400)

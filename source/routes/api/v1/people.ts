@@ -5,7 +5,7 @@ import type { AccountInfoResponse } from "../../../types/account_info";
 
 // imports
 import express from 'express';
-import query from '../../../other/postgresqlConnection.js';
+import client from '../../../other/postgresqlConnection.js';
 import { nintendoPasswordHash } from "../../../other/hash.js";
 import { PeopleHelper } from "../../../helpers/people.js";
 
@@ -29,7 +29,7 @@ router.post('/', async (req: Request, res: Response) => {
 	let password = body.person.password;
 
 	// queries
-	const pid_query = await query<User>({ text: 'SELECT * FROM accounts ORDER BY pid DESC LIMIT 1' });
+	const pid_query = await client.query<User>({ text: 'SELECT * FROM accounts ORDER BY pid DESC LIMIT 1' });
 	let pid = pid_query.rows[0].pid + 1;
 	if (pid == null)
 		pid = 0
@@ -37,7 +37,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 	// TODO: take out the query into a function
 	// FIX: Added birth_date to query
-	await query({text: `INSERT INTO accounts(pid, mii_hash1, nnid, screen_name, gender, birth_date, create_date, email, country, utc_offset, language, mii_url, tz_name, update_time, region, serviceToken, password) VALUES(${pid + 1}, "${mii_hash}", "${rnid}", "${screen_name}", "${gender}", "${birth_date}" ,"${create_date}", "${email}", "${country}", "${utc_offset}", "${language}", "http://mii.genebelcher.com/mii/${pid}/standard.tga", "${tz_name}", "${create_date}", "${region}", "", "${password}")`});
+	await client.query({text: `INSERT INTO accounts(pid, mii_hash1, nnid, screen_name, gender, birth_date, create_date, email, country, utc_offset, language, mii_url, tz_name, update_time, region, serviceToken, password) VALUES(${pid + 1}, "${mii_hash}", "${rnid}", "${screen_name}", "${gender}", "${birth_date}" ,"${create_date}", "${email}", "${country}", "${utc_offset}", "${language}", "http://mii.genebelcher.com/mii/${pid}/standard.tga", "${tz_name}", "${create_date}", "${region}", "", "${password}")`});
 	return res.xml(PeopleHelper(pid), {
 		header: true
 	})
