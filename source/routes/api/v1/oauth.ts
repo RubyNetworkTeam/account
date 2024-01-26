@@ -8,7 +8,7 @@ import express from 'express'
 import jwt from "jsonwebtoken"
 const sign = jwt.sign
 
-import query from '../../../other/postgresqlConnection.js'
+import client from '../../../other/postgresqlConnection.js'
 import { AccountOauthError, ProfileError } from "../../../helpers/errors.js"
 import { OAuthHelper } from "../../../helpers/oauth.js"
 
@@ -20,18 +20,22 @@ const refreshTokenSecret = config.refreshTokenSecret;
 const router = express.Router()
 
 router.post('/', async (req: Request, res: Response) => {
-	const client_id = req.header("X-Nintendo-Client-ID")
+	var client_id = req.header("X-Nintendo-Client-ID")
+	if(client_id == undefined) {
+		res.status(400)
+		return res.send("No ClientID")
+	}
 	const password = req.body.password
 	const rnid = req.body.user_id;
-	const pass = query<User>({ text: `SELECT * FROM accounts WHERE "nnid"='${rnid}'` });
-	const accesed = query({ text: `SELECT * FROM last_accessed WHERE "id"='${client_id}'` });
+	const pass = client.query<User>({ text: `SELECT * FROM accounts WHERE "nnid"='${rnid}'` });
+	const accesed = client.query({ text: `SELECT * FROM last_accessed WHERE "id"='${client_id}'` });
 	// TODO: Add types
 	// @ts-ignore
 	accesed.then(function (result) {
 		if (result.rows.length == 0) {
-			query({ text: `INSERT INTO last_accessed(rnid, id) VALUE("${rnid}", "${client_id}")` });
+			client.query({ text: `INSERT INTO last_accessed("rnid", "id") VALUES('${rnid}', '${client_id}')` });
 		} else {
-			query({ text: `UPDATE last_accessed SET "rnid"='${rnid}', "id"='${client_id}'` });
+			client.query({ text: `UPDATE last_accessed SET "rnid"='${rnid}', "id"='${client_id}'` });
 		}
 	})
 	pass.then(function (result) {

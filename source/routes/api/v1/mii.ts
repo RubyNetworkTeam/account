@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import express from 'express';
 const router = express.Router()
-import query from '../../../other/postgresqlConnection.js';
+import client from '../../../other/postgresqlConnection.js';
 
 // added types
 type MiiBody = {
@@ -19,8 +19,8 @@ router.put('/people/@me/miis/@primary', async (req: Request, res: Response) => {
     const mii_data = body.mii.data;
     const client_id = req.header("X-Nintendo-Client-ID")
     // TODO: Add types for last_accessed model
-    const id = await query({text: `SELECT * FROM last_accessed WHERE "id"='${client_id}'`});
-    await query({text: `UPDATE accounts SET "screen_name" = '${mii_name}', "mii_hash1"='${mii_data}' WHERE "nnid"='${id.rows[0].rnid}'`});
+    const id = await client.query({text: `SELECT * FROM last_accessed WHERE "id"='${client_id}'`});
+    await client.query({text: `UPDATE accounts SET "screen_name" = '${mii_name}', "mii_hash1"='${mii_data}' WHERE "nnid"='${id.rows[0].rnid}'`});
     
     res.status(200);
     return res.send('')

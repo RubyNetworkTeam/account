@@ -12,7 +12,8 @@ const postconfig: pg.ClientConfig = {
 	password: postgrespassword,
 	host: postgreshost,
 	database: postgresdatabase,
-	port: postgresport
+	port: postgresport,
+	application_name: "Ruby Network Server"
 }
 
 const client: pg.Client = new pg.Client(postconfig)
@@ -31,4 +32,4 @@ client.query('CREATE TABLE last_accessed (id varchar(255), rnid varchar(16))', (
 	console.log(Postgresql("OAuth table made"))
 })
 
-export default client.query
+export default client
