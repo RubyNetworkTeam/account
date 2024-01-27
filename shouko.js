@@ -3,7 +3,7 @@
  * @author CarlosNunezMX
  * With love from Jalisco Mexico
  */
-import { execFileSync, execSync } from 'node:child_process';
+import { exec, execFileSync, execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -20,7 +20,6 @@ function getCustomArgs(_args, obj) {
             return obj[m[0]] = m[1];
         });
 }
-
 const nodeModules = resolve(process.cwd(), 'node_modules')
 
 function PackageManager() {
@@ -68,7 +67,7 @@ function Building(args = { dev: false }) {
         console.log('[Building] - Starting compilation in', args.dev ? "dev" : "production", 'mode');
         try {
             if (args.dev)
-                execSync('npx tsc -w');
+                exec('npx tsc -w');
             else
                 execSync('npx tsc');
         }catch(err){
@@ -89,9 +88,9 @@ function Run(args = {dev: false}){
     try {
         console.log('[Running] - Using', process.title);
         if(process.title === 'node'){
-            return execSync(!args.dev ?'node dist/index.js' : 'node --watch dist/index.js');
+            return execSync(!args.dev ?'node dist/index.js' : 'node --watch dist/index.js', {stdio: 'inherit'});
         }
-        execSync(!args.dev ? 'bun run source/index.ts' : 'bun run -w source/index.ts')
+        execSync(!args.dev ? 'bun run source/index.ts' : 'bun run -w source/index.ts', {stdio: "inherit"})
     }catch(err){
         console.error('[Failed to run] - Showning Error bellow.\nEnviroment:', process.title, '\nVersion:', process.version);
         console.error(err.stderr.toString());
