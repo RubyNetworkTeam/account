@@ -3,7 +3,7 @@
  * @author CarlosNunezMX
  * With love from Jalisco Mexico
  */
-import { exec, execFileSync, execSync } from 'node:child_process';
+import { exec, execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 function getCustomArgs(_args, obj) {
@@ -21,7 +21,36 @@ function getCustomArgs(_args, obj) {
 }
 const nodeModules = resolve(process.cwd(), 'node_modules')
 
-function certGeneration(moduleType){
+let pkg_mgr = getPackageManager();
+
+function getPackageManager(){
+    if(Bun.isBun){
+        return {name: "", command: ""}
+    }
+    const packagemanagers = [{
+        name: "pnpm",
+        command: 'pnpm install'
+    }, {
+        name: "npm",
+        command: 'npm install'
+    }, {
+        name: "yarn",
+        command: 'yarn install'
+    }];
+
+
+    for (const mng of packagemanagers) {
+        try {
+            const res = execSync(`${mng.name} -v`);
+            console.log(`[Get Package Manager] - ${mng.name} found!`);
+            return mng;
+        } catch (error) {
+            console.log(`[Get Package Manager] - ${mng.name} not fount`);
+        }
+    }
+
+}
+function certGeneration(){
     if(
         existsSync(resolve(process.cwd(), "server.key") ||
         existsSync(resolve(process.cwd(), "server.crt")
@@ -32,8 +61,8 @@ function certGeneration(moduleType){
     
     try{
         if(!process.isBun){
-            console.log("[Certificate] - You're using Node, running with ", moduleType, " package manager.");
-            const command = `${moduleType} run generateCert`;
+            console.log("[Certificate] - You're using Node, running with ", pkg_mgr, " package manager.");
+            const command = `${pkg_mgr} run generateCert`;
             execSync(command, {
                 stdio: 'inherit'
             })
@@ -55,39 +84,17 @@ function certGeneration(moduleType){
 }
 
 function PackageManager() {
-    if (!process.isBun) {
-        const packagemanagers = [{
-            name: "pnpm",
-            command: 'pnpm install'
-        }, {
-            name: "npm",
-            command: 'npm install'
-        }, {
-            name: "yarn",
-            command: 'yarn install'
-        }];
-        for (let i = 0; i < packagemanagers.length; i++) {
-            const pkg_mgr = packagemanagers[i];
-            try {
-                const res = execSync(`${pkg_mgr.name} -v`);
-                console.log(`[Installing Deps] - ${pkg_mgr.name} found!`);
-                execSync(pkg_mgr.command)
-                console.log(`[Installing Deps] - Finished to install deps.`);
-                certGeneration(pkg_mgr.name)
-                break;
-            } catch (error) {
-                console.log(`[Installing Deps] - ${pkg_mgr.name} not fount`);
-            }
-        }
-    }
-
     try {
+        if (!process.isBun) {
+            execSync(pkg_mgr.command)
+            console.log(`[Installing Deps] - Finished to install deps.`);
+            return;
+        }
         console.log('[Installing Deps] - Installing deps with Bun.');
         execSync('bun install');
         console.log('[Installing Deps] - Installed all deps.');
-        certGeneration()
     } catch (err) {
-        console.error("Could not install deps with bun, try deleting 'node_modules' folder and bun.lockb");
+        console.error(`Could not install deps with ${process.isBun ? "bun" : "node"}, try deleting 'node_modules' folder and bun.lockb`);
         console.log(err);
         process.exit(1)
     }
@@ -120,6 +127,7 @@ function Run(args = {dev: false}){
     const hasModules = existsSync(nodeModules);
     if (!hasModules)
         PackageManager();
+    certGeneration()
     try {
         console.log('[Running] - Using', process.title);
         if(process.title === 'node'){
