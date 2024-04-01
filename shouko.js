@@ -6,7 +6,6 @@
 import { exec, execFileSync, execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-
 function getCustomArgs(_args, obj) {
     _args
         .map(arg => arg.split('='))
@@ -21,6 +20,39 @@ function getCustomArgs(_args, obj) {
         });
 }
 const nodeModules = resolve(process.cwd(), 'node_modules')
+
+function certGeneration(moduleType){
+    if(
+        existsSync(resolve(process.cwd(), "server.key") ||
+        existsSync(resolve(process.cwd(), "server.crt")
+    ))){
+        console.log("[Certification] - Files already exists, skiping...")
+        return;
+    }
+    
+    try{
+        if(!process.isBun){
+            console.log("[Certificate] - You're using Node, running with ", moduleType, " package manager.");
+            const command = `${moduleType} run generateCert`;
+            execSync(command, {
+                stdio: 'inherit'
+            })
+            console.log("[Certificate] - Certificates has been created!");
+        }
+
+        else {
+            console.log("[Certificate] - You're using Bun, running with bun!");
+            const command = `bun generateCert`;
+            execSync(command, {
+                stdio: "inherit"
+            })
+            console.log("[Certificate] - Certificates has been created!");
+        }
+    }catch(err){
+        console.error("Could not create server certs... Try doing it manually.");
+        process.exit(1)
+    }
+}
 
 function PackageManager() {
     if (!process.isBun) {
@@ -41,6 +73,7 @@ function PackageManager() {
                 console.log(`[Installing Deps] - ${pkg_mgr.name} found!`);
                 execSync(pkg_mgr.command)
                 console.log(`[Installing Deps] - Finished to install deps.`);
+                certGeneration(pkg_mgr.name)
                 break;
             } catch (error) {
                 console.log(`[Installing Deps] - ${pkg_mgr.name} not fount`);
@@ -52,8 +85,10 @@ function PackageManager() {
         console.log('[Installing Deps] - Installing deps with Bun.');
         execSync('bun install');
         console.log('[Installing Deps] - Installed all deps.');
+        certGeneration()
     } catch (err) {
         console.error("Could not install deps with bun, try deleting 'node_modules' folder and bun.lockb");
+        console.log(err);
         process.exit(1)
     }
 }
