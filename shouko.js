@@ -24,7 +24,7 @@ const nodeModules = resolve(process.cwd(), 'node_modules')
 let pkg_mgr = getPackageManager();
 
 function getPackageManager(){
-    if(Bun.isBun){
+    if(typeof Bun !== "undefined"){
         return {name: "", command: ""}
     }
     const packagemanagers = [{
@@ -61,8 +61,8 @@ function certGeneration(){
     
     try{
         if(!process.isBun){
-            console.log("[Certificate] - You're using Node, running with ", pkg_mgr, " package manager.");
-            const command = `${pkg_mgr} run generateCert`;
+            console.log("[Certificate] - You're using Node, running with ", pkg_mgr.name, " package manager.");
+            const command = `${pkg_mgr.name} run generateCert`;
             execSync(command, {
                 stdio: 'inherit'
             })
@@ -104,7 +104,6 @@ function Building(args = { dev: false }) {
     if (!hasModules)
         PackageManager();
     console.log('[Building] - Modules are now installed!')
-
     if (process.title === "node") {
         console.log('[Building] - Starting compilation in', args.dev ? "dev" : "production", 'mode');
         try {
@@ -125,12 +124,15 @@ function Building(args = { dev: false }) {
 }
 function Run(args = {dev: false}){
     const hasModules = existsSync(nodeModules);
+    const buildDirectory = existsSync(resolve(process.cwd(), "dist"));
     if (!hasModules)
         PackageManager();
-    certGeneration()
+    certGeneration();
     try {
         console.log('[Running] - Using', process.title);
         if(process.title === 'node'){
+            if(!buildDirectory)
+                Building();
             return execSync(!args.dev ?'node dist/index.js' : 'node --watch dist/index.js', {stdio: 'inherit'});
         }
         execSync(!args.dev ? 'bun run source/index.ts' : 'bun run -w source/index.ts', {stdio: "inherit"})
