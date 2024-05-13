@@ -6,12 +6,6 @@ const Router = require('./routes/router');
 const fs = require('fs')
 const con = require('./other/postgresqlConnection')
 var http = require('http');
-var https = require('https');
-var privateKey  = fs.readFileSync('server.key', 'utf8');
-var certificate = fs.readFileSync('server.crt', 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
-const { httpPort, httpsPort } = config;
 
 var xmlparser = require('express-xml-bodyparser');
 const logger = require('./other/logger');
@@ -67,11 +61,7 @@ app.get('/p01/policylist/1/1/:var', (req, res) => {
 })
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(httpPort, async () => {
     console.log(logger.Info(`HTTP Server started on port ${httpPort}`))
-})
-httpsServer.listen(httpsPort, async () => {
-    console.log(logger.Info(`HTTPS Server started on port ${httpsPort}`))
 })
