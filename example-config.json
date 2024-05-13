@@ -1,6 +1,5 @@
 {
     "httpPort" : 80,
-    "httpsPort": 443,
     "postgresuser" : "",
     "postgrespassword" : "",
     "postgreshost": "",
