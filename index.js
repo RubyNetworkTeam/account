@@ -62,6 +62,6 @@ app.get('/p01/policylist/1/1/:var', (req, res) => {
 
 var httpServer = http.createServer(app);
 
-httpServer.listen(httpPort, async () => {
+httpServer.listen(config.httpPort, async () => {
     console.log(logger.Info(`HTTP Server started on port ${httpPort}`))
 })
