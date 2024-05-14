@@ -1,7 +1,7 @@
 # RubyNetwork Account Server
 Introducing the next-gen account server, a seamless replacement for Nintendo Network! Crafted with love using Node.js and Express, our server ensures a smooth and secure gaming experience for all. Say hello to a world of gaming joy.
 
-A special thanks to Pretendo Network for paving the way in the gaming community. Their inspiration has fueled our commitment to creating a top-notch server. Express.js and Node.js, you're the dynamic duo that powers our server's efficiency – we couldn't have done it without you!
+# A special thanks to Pretendo Network for paving the way in the gaming community. Their inspiration has fueled our commitment to creating a top-notch server. Express.js and Node.js, you're the dynamic duo that powers our server's efficiency – we couldn't have done it without you!
 
 Here's to a new era of gaming excellence, where every connection is a celebration. Cheers to innovation, collaboration, and a gaming community united by technology!
 
