@@ -25,11 +25,11 @@ const { query } = require('../../other/postgresqlConnection')
  */
 const Mii = require('mii-js')
 
-router.get('/:rpid/:file', async (req, res) => {
-    const rpid = req.params.rpid;
+router.get('/:rnid/:file', async (req, res) => {
+    const rnid = req.params.rnid;
     const file = req.params.file
     res.status = 200;
-    const data = await query(`SELECT * FROM accounts WHERE "pid"='${rpid}'`)
+    const data = await query(`SELECT * FROM accounts WHERE "nnid"='${rnid}'`)
     if (data.rows.length == 0) {
     res.status = 404
     return res.send(`<html><body><style type="text/css">p {word-wrap: break-word;}</style><center><h1 style="font-family: tahoma;">|___=+404+=___|</h1></center><p id="d"></p><script>window.setInterval("document.getElementById('d').innerHTML +=' &#'+Math.floor((Math.random() * 10000) + 1)+';';", 100);</script></body></html>`)
