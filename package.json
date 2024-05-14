@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
     "node-fetch": "^2.7.0",
+    "mii-js": "https://github.com/pretendonetwork/mii-js",
     "pg": "^8.11.3"
   }
 }
