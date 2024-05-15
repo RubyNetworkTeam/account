@@ -43,13 +43,13 @@ owner_router.get("/", async (req, res) => {
      */
     const db_user = await query(LoginSQL.replace('?', user));
     const account = db_user.rows
+    console.log(account[0])
     if(db_user.rows.length == 0){
         res.status(400)
         return res.send(file)
     }
-    const [_user] = db_user.rows;
-    let passwordHashed = nintendoPasswordHash(password, _user.pid);
-    if(passwordHashed !== _user.password){
+    let passwordHashed = nintendoPasswordHash(password, account[0].pid);
+    if(passwordHashed !== account[0].password){
         res.status(400)
         return res.send(file)
     }
