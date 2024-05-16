@@ -7,9 +7,9 @@ router.get('/', async (req, res) => {
     const rnid = req.query.input
     let target;
     target = rnid.split(',')
-    const pid = await query(`SELECT * FROM accounts WHERE "nnid"='${target[0]}'`);
+    const pid = await query(`SELECT * FROM accounts WHERE "nnid"='${target[0]}'`)
     res.status = 200;
-    if (pid == undefined) {
+    if (pid.rows[0] == undefined) {
         return res.send(`<mapped_ids>
     <mapped_id>
         <in_id>${rnid}</in_id>
